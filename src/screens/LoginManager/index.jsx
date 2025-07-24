@@ -19,6 +19,7 @@ import { getJson } from '../../api/auth';
 import { parseSizeWidth, parseSizeHeight } from '../../theme';
 import LoadingScreen from '../../components/Loading/LoadingScreen';
 import { setGlobalLoading } from '../../redux/slice/loadingSlice';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const LoginManager = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -124,7 +125,7 @@ const LoginManager = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}
@@ -221,13 +222,13 @@ const LoginManager = () => {
           <Text style={styles.loginBtnText}>Đăng nhập</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: parseSizeWidth(24),
+    paddingHorizontal: parseSizeWidth(16),
     backgroundColor: '#fff',
     flexGrow: 1,
   },

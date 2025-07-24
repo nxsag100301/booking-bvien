@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import icons from '../../constants/icons';
 import { userLoginAPI } from '../../redux/slice/userSlice';
 import { parseSizeWidth, parseSizeHeight } from '../../theme';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const LoginCustomer = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -81,10 +82,7 @@ const LoginCustomer = () => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      keyboardShouldPersistTaps="handled"
-    >
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}
@@ -160,13 +158,13 @@ const LoginCustomer = () => {
           <Text style={styles.signupText}>Chưa có tài khoản?</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: parseSizeWidth(24),
+    paddingHorizontal: parseSizeWidth(16),
     backgroundColor: '#fff',
     flexGrow: 1,
   },

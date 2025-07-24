@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Pdf from 'react-native-pdf';
 import { Height, Width } from '../../theme';
+import MyHeader from '../../components/Header/MyHeader';
 
 const TestPdf = () => {
   const source = {
@@ -9,22 +10,23 @@ const TestPdf = () => {
   };
   return (
     <View style={styles.container}>
+      <MyHeader headerTitle="PDF" />
       <Pdf
-        trustAllCerts={false}
+        trustAllCerts={true}
         source={source}
         style={styles.pdf}
-        // onLoadComplete={(numberOfPages, filePath) => {
-        //   console.log(`Number of pages: ${numberOfPages}`);
-        // }}
-        // onPageChanged={(page, numberOfPages) => {
-        //   console.log(`Current page: ${page}`);
-        // }}
-        // onError={error => {
-        //   console.log(error);
-        // }}
-        // onPressLink={uri => {
-        //   console.log(`Link pressed: ${uri}`);
-        // }}
+        onLoadComplete={(numberOfPages, filePath) => {
+          console.log(`Number of pages: ${numberOfPages}`);
+        }}
+        onPageChanged={(page, numberOfPages) => {
+          console.log(`Current page: ${page}`);
+        }}
+        onError={error => {
+          console.log(error);
+        }}
+        onPressLink={uri => {
+          console.log(`Link pressed: ${uri}`);
+        }}
       />
     </View>
   );
