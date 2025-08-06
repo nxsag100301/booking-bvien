@@ -2410,64 +2410,6 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNCMaskedView (0.3.2):
-    - boost
-    - DoubleConversion
-    - fast_float
-    - fmt
-    - glog
-    - hermes-engine
-    - RCT-Folly
-    - RCT-Folly/Fabric
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-hermes
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - SocketRocket
-    - Yoga
-  - RNCPicker (2.11.1):
-    - boost
-    - DoubleConversion
-    - fast_float
-    - fmt
-    - glog
-    - hermes-engine
-    - RCT-Folly
-    - RCT-Folly/Fabric
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-hermes
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - SocketRocket
-    - Yoga
   - RNDateTimePicker (8.4.2):
     - boost
     - DoubleConversion
@@ -2522,6 +2464,35 @@ PODS:
     - React-debug
     - React-Fabric
     - React-FabricComponents
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
+  - RNPermissions (5.4.2):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
     - React-featureflags
     - React-graphics
     - React-hermes
@@ -2748,6 +2719,12 @@ PODS:
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
+  - VisionCamera (4.7.1):
+    - VisionCamera/Core (= 4.7.1)
+    - VisionCamera/React (= 4.7.1)
+  - VisionCamera/Core (4.7.1)
+  - VisionCamera/React (4.7.1):
+    - React-Core
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -2831,16 +2808,16 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
-  - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
-  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - SocketRocket (~> 0.7.1)
+  - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -3015,10 +2992,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
-  RNCMaskedView:
-    :path: "../node_modules/@react-native-masked-view/masked-view"
-  RNCPicker:
-    :path: "../node_modules/@react-native-picker/picker"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNDeviceInfo:
@@ -3029,10 +3002,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/messaging"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  VisionCamera:
+    :path: "../node_modules/react-native-vision-camera"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -3125,18 +3102,18 @@ SPEC CHECKSUMS:
   ReactCodegen: a492cab89cc8de48b8b65bda6714808786a411bd
   ReactCommon: 3d916b13ac777fc387b8035ab80ceb90aca4f747
   RNCAsyncStorage: f30b3a83064e28b0fc46f1fbd3834589ed64c7b9
-  RNCMaskedView: 1d6aed6fc41e6f067d1859bb476da2e0b71874c5
-  RNCPicker: a5e6459e191fbcfca2b902f41b465418b58068b5
   RNDateTimePicker: 7d07e8681c9b77e97a22a54ecbce7e82a9fa7fdc
   RNDeviceInfo: d863506092aef7e7af3a1c350c913d867d795047
   RNFBApp: db9c2e6d36fe579ab19b82c0a4a417ff7569db7e
   RNFBMessaging: de62448d205095171915d622ed5fb45c2be5e075
   RNGestureHandler: 1fb6ea7f6b3e07214d6fb8e5951f1beba36a1401
+  RNPermissions: e4b39bbb776a2bdb0e50e09bbfaf5b85f8d79e1b
   RNReanimated: 1fc076ab0b4d40b56de45b06b631ea6e590c93b1
   RNScreens: 6a2d1ff4d263d29d3d3db9f3c19aad2f99fdd162
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
+  VisionCamera: 9a8f98ae344fe5d148f84bb45829f9e4caab9d2f
   Yoga: c6dc84349a2b99e1900fe5729f5c34df75c009f2
 
-PODFILE CHECKSUM: 71e8d1a5af7f01ee11a233c1a61a1d7265e9a2b5
+PODFILE CHECKSUM: 9d1355a138b2523851f4baebdd09b8e172480937
 
 COCOAPODS: 1.15.2

@@ -42,10 +42,7 @@ const Index = () => {
   }, []);
   return (
     <>
-      <SafeAreaView
-        edges={['top', 'left', 'right', 'bottom']}
-        style={styles.container}
-      >
+      <SafeAreaView style={styles.container}>
         <StatusBar barStyle={'dark-content'} backgroundColor="white" />
         <Navigation />
       </SafeAreaView>

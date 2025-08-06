@@ -32,7 +32,7 @@ const MyTheme = {
 
 const Navigation = () => {
   const user = useSelector(state => state.user.currentUser);
-  const isLogin = !!user;
+  const isLogin = true;
   return (
     <NavigationContainer ref={navigationRef} theme={MyTheme}>
       <Stack.Navigator

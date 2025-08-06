@@ -1,4 +1,4 @@
-package com.sixos
+package com.clinicbookingapp
 
 import android.app.Application
 import com.facebook.react.PackageList

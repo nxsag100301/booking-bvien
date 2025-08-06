@@ -49,5 +49,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Ứng dụng cần quyền truy cập Camera để quét mã QR</string>
+
 </dict>
 </plist>

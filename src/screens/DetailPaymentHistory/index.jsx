@@ -104,7 +104,6 @@ export default DetailPaymentHistory;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f9fc',
   },
   content: {
     padding: parseSizeWidth(16),

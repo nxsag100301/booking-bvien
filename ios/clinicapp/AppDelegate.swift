@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow(frame: UIScreen.main.bounds)
 
     factory.startReactNative(
-      withModuleName: "sixos",
+      withModuleName: "clinicbookingapp",
       in: window,
       launchOptions: launchOptions
     )

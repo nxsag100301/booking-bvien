@@ -1,6 +1,7 @@
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import MyHeader from '../../components/Header/MyHeader';
 import DoctorCard from './conponents/DoctorCard';
+import { parseSizeWidth } from '../../theme';
 
 const groupedDoctors = [
   {
@@ -17,24 +18,22 @@ const Booking = () => {
   return (
     <>
       <MyHeader headerTitle="Đặt khám" />
-      <View style={styles.content}>
-        <FlatList
-          data={groupedDoctors}
-          keyExtractor={(_, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>{item.title}</Text>
-              {item.data.map((_, i) => (
-                <View key={i} style={styles.cardSpacing}>
-                  <DoctorCard />
-                </View>
-              ))}
-            </View>
-          )}
-          contentContainerStyle={styles.listContent}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+      <FlatList
+        data={groupedDoctors}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>{item.title}</Text>
+            {item.data.map((_, i) => (
+              <View key={i} style={styles.cardSpacing}>
+                <DoctorCard />
+              </View>
+            ))}
+          </View>
+        )}
+        contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
+      />
     </>
   );
 };
@@ -46,11 +45,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  content: {
-    paddingHorizontal: 8,
-  },
   section: {
-    paddingHorizontal: 8,
+    paddingHorizontal: parseSizeWidth(16),
     marginBottom: 20,
   },
   sectionTitle: {

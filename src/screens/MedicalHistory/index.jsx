@@ -158,9 +158,14 @@ const styles = StyleSheet.create({
     borderRadius: parseSizeWidth(10),
     marginBottom: parseSizeHeight(16),
     shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 4,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
     zIndex: 1000, // Để dropdown không bị che
     marginHorizontal: parseSizeWidth(16),
   },
@@ -196,11 +201,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: parseSizeWidth(16),
     borderRadius: parseSizeWidth(10),
-    marginBottom: parseSizeHeight(12),
+    marginVertical: parseSizeHeight(6),
     shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 4,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
     marginHorizontal: parseSizeWidth(16),
   },
   date: {
