@@ -40,6 +40,7 @@ import history from '../assets/icons/history.png';
 import back from '../assets/icons/back.png';
 import eyeOpen from '../assets/icons/eye-open.png';
 import eyeOff from '../assets/icons/eye-off.png';
+import scan from '../assets/icons/scan.png';
 
 export default {
   eyeOpen,
@@ -84,4 +85,5 @@ export default {
   location,
   edit,
   menu,
+  scan,
 };

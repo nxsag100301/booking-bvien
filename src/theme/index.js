@@ -3,7 +3,7 @@ import deviceInfo from '../utils/deviceInfo';
 
 export const platform = Platform.OS;
 const deviceName = deviceInfo.deviceName || '';
-let iPhone = [
+let iPhoneX = [
   'IPHONE 6',
   'IPHONE 6 PLUS',
   'IPHONE 6S',
@@ -16,8 +16,8 @@ let iPhone = [
   'IPHONE SE (2020)', // iPhone SE thế hệ thứ 2 (với thiết kế giống iPhone 8)
 ];
 
-export const isIphone =
-  platform === 'ios' && iPhone.indexOf(deviceName.toUpperCase()) > -1;
+export const isIphoneX =
+  platform === 'ios' && iPhoneX.indexOf(deviceName.toUpperCase()) > -1;
 
 export const Width = Dimensions.get('window').width;
 export const Height = Dimensions.get('window').height;
@@ -44,15 +44,33 @@ export const parseSizeWidth = number => {
 
 export const Colors = {
   background: '#FDFDFD',
+  white: '#FFFFFF',
+  black: '#181818',
+
+  //Text
+  text_50: '#F4F5F7',
+  text_100: '#E2E4EB',
+  text_200: '#C9CCD8',
+  text_300: '#A3A7BD',
+  text_400: '#767C9A',
+  text_500: '#5A5F80',
+  text_600: '#4E516C',
+  text_700: '#43455B',
+  text_800: '#3C3D4E',
+  text_900: '#363743',
 
   //Primary
-  primary_50: '#FFEDD4',
-  primary_300: '#FFC68B',
-  primary_600: '#E68D09',
-  primary_700: '#DA8200',
-  primary_800: '#B56400',
-  primary_900: '#5F2900',
-  primary_1000: '#3F2500',
+  primary_50: '#E8F0FF',
+  primary_100: '#C7D7FF',
+  primary_200: '#A4BDFF',
+  primary_300: '#7F9FFF',
+  primary_400: '#5E82FF',
+  primary_500: '#3D65FF',
+  primary_600: '#004AAD',
+  primary_700: '#003B8E',
+  primary_800: '#002D67',
+  primary_900: '#001F43',
+  primary_950: '#00122A',
 
   //Black
   black_100: '#D2D2D5',
@@ -61,28 +79,70 @@ export const Colors = {
   black_500: '#1D1F2C',
   black_900: '#030304',
 
-  //Gray
-  gray_25: '#F9F9FC',
-  gray_50: '#F0F1F3',
-  gray_100: '#E0E2E7',
-  gray_200: '#C2C6CE',
-  gray_400: '#858D9D',
-
   //Error
-  error: '#DC2626',
-  error_bg: '#FEECEE',
+  error_50: '#FEF3F2',
+  error_100: '#FFCDC9',
+  error_200: '#FDAAA4',
+  error_300: '#FEE4E2',
+  error_400: '#F97970',
+  error_500: '#F04438',
+  error_600: '#D92D20',
+  error_700: '#B42318',
+  error_800: '#912018',
+  error_900: '#7A271A',
+  error_950: '#50160C',
 
   //Success
-  success: '#009800',
-  success_bg: '#EEFFE2',
+  success_50: '#F6FEF9',
+  success_100: '#DCFAE6',
+  success_200: '#ABEFC6',
+  success_300: '#75E0A7',
+  success_400: '#47DC89',
+  success_500: '#17B26A',
+  success_600: '#079455',
+  success_700: '#067647',
+  success_800: '#085D3A',
+  success_900: '#074D31',
+  success_950: '#053321',
 
   //Warning
-  warning: '#F2B600',
-  warning_bg: '#FFFBEA',
+  warning_50: '#FFFAEB',
+  warning_100: '#FEF0C7',
+  warning_200: '#FEDF89',
+  warning_300: '#FEC84B',
+  warning_400: '#FDB022',
+  warning_500: '#F79009',
+  warning_600: '#DC6803',
+  warning_700: '#B54708',
+  warning_800: '#93370D',
+  warning_900: '#7A2E0E',
+  warning_950: '#4E1D09',
 
   //Blue
-  blue: '#423FFF',
-  blue_bg: '#E7E7F6',
+  blue_50: '#EBF2FF',
+  blue_100: '#DBE5FF',
+  blue_200: '#BED0FF',
+  blue_300: '#97AFFF',
+  blue_400: '#6E82FF',
+  blue_500: '#4C57FF',
+  blue_600: '#423FFF',
+  blue_700: '#2720E2',
+  blue_800: '#201DB6',
+  blue_900: '#20218F',
+  blue_950: '#141353',
+
+  //Gray neutral
+  gray_neutral_50: '#F7F7F7',
+  gray_neutral_100: '#E7E7E980',
+  gray_neutral_200: '#DDDDE0',
+  gray_neutral_300: '#C6C6CA',
+  gray_neutral_400: '#A9AAB1',
+  gray_neutral_500: '#95949D',
+  gray_neutral_600: '#84838D',
+  gray_neutral_700: '#78767F',
+  gray_neutral_800: '#64636A',
+  gray_neutral_900: '#535256',
+  gray_neutral_950: '#343437',
 
   //Green
   green: '#009800',
@@ -147,7 +207,7 @@ export const Sizes = {
   heightLine_Width: parseSizeWidth(2),
   heightLine_Height: parseSizeHeight(2),
   input_Width: parseSizeWidth(361),
-  input_Height: parseSizeHeight(46),
+  input_Height: parseSizeHeight(48),
   input_radius_Width: parseSizeWidth(12),
   input_radius_Height: parseSizeHeight(12),
 };

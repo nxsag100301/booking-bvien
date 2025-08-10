@@ -14,6 +14,7 @@ import DetailPaymentHistory from './DetailPaymentHistory';
 import TestPdf from './TestPdf';
 import StartScreen from './StartScreen';
 import ForgotPassword from './ForgotPassword';
+import ScanQR from './ScanQR';
 
 export {
   Home,
@@ -32,4 +33,5 @@ export {
   TestPdf,
   StartScreen,
   ForgotPassword,
+  ScanQR,
 };

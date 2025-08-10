@@ -1,9 +1,11 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-native/no-inline-styles */
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, StyleSheet, View } from 'react-native';
-import { Home, Menu, Notifications, Search } from '../../screens';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Home, Menu, Notifications, ScanQR, Search } from '../../screens';
 import icons from '../../constants/icons';
-import { parseSizeHeight, parseSizeWidth } from '../../theme';
+import { Colors, parseSizeHeight, parseSizeWidth } from '../../theme';
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,42 +15,86 @@ const bottomTab = [
     name: 'home',
     component: Home,
     icon: icons.home,
+    label: 'Trang chủ',
   },
   {
     id: 2,
     name: 'search',
     component: Search,
-    icon: icons.search,
+    icon: icons.calendar,
+    label: 'Lịch khám',
   },
   {
     id: 3,
-    name: 'notifications',
-    component: Notifications,
-    icon: icons.bell,
+    name: 'scanQR',
+    component: ScanQR,
+    icon: icons.scan,
+    isMiddle: true,
+    label: 'Quét QR',
   },
   {
     id: 4,
+    name: 'notifications',
+    component: Notifications,
+    icon: icons.info,
+    label: 'Tin y tế',
+  },
+  {
+    id: 5,
     name: 'menu',
     component: Menu,
-    icon: icons.menu,
+    icon: icons.person,
+    label: 'Tài khoản',
   },
 ];
 
-const TabIcon = ({ icon, focused }) => {
+const TabIcon = ({ icon, focused, isMiddle, label }) => {
+  const navigation = useNavigation();
+  if (isMiddle) {
+    return (
+      <TouchableOpacity
+        style={styles.middleButton}
+        onPress={() => navigation.navigate('scanQR')}
+      >
+        <Image
+          source={icon}
+          style={{
+            width: parseSizeWidth(36),
+            height: parseSizeHeight(36),
+            tintColor: focused ? Colors.primary_600 : '#8E8E93',
+          }}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>
+    );
+  }
+
   return (
     <View style={styles.tabIcon}>
       <Image
         source={icon}
         style={{
-          width: parseSizeWidth(32),
-          height: parseSizeHeight(32),
-          tintColor: focused ? '#177DE2' : '#8E8E93',
+          width: parseSizeWidth(28),
+          height: parseSizeHeight(28),
+          tintColor: focused ? Colors.primary_600 : '#8E8E93',
         }}
         resizeMode="contain"
       />
+      <Text
+        style={{
+          color: focused ? Colors.primary_600 : '#8E8E93',
+          fontSize: 10,
+          marginTop: 4,
+          fontWeight: 500,
+          textAlign: 'center',
+        }}
+      >
+        {label}
+      </Text>
     </View>
   );
 };
+
 const BottomTab = () => {
   return (
     <Tab.Navigator
@@ -60,12 +106,17 @@ const BottomTab = () => {
     >
       {bottomTab.map(tab => (
         <Tab.Screen
+          key={tab.id}
           name={tab.name}
           component={tab.component}
           options={{
-            // eslint-disable-next-line react/no-unstable-nested-components
             tabBarIcon: ({ focused }) => (
-              <TabIcon icon={tab.icon} focused={focused} label={tab.title} />
+              <TabIcon
+                icon={tab.icon}
+                focused={focused}
+                isMiddle={tab.isMiddle}
+                label={tab.label}
+              />
             ),
           }}
         />
@@ -76,19 +127,29 @@ const BottomTab = () => {
 
 const styles = StyleSheet.create({
   tabBar: {
-    height: parseSizeHeight(50),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: parseSizeHeight(10),
+    height: parseSizeHeight(55),
+    backgroundColor: Colors.background,
+    paddingTop: parseSizeHeight(8),
   },
   tabIcon: {
     height: parseSizeHeight(42),
-    width: parseSizeWidth(42),
-    display: 'flex',
-    flexDirection: 'column',
+    width: parseSizeWidth(100),
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  middleButton: {
+    backgroundColor: Colors.background,
+    width: parseSizeWidth(60),
+    height: parseSizeHeight(60),
+    borderRadius: parseSizeWidth(30),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -20,
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
   },
 });
 
