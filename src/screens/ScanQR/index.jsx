@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import {
   Camera,
@@ -8,6 +8,7 @@ import {
 import { Colors } from '../../theme';
 
 export default function QRScanner() {
+  const [hasPermission, setHasPermission] = useState(false);
   const device = useCameraDevice('back');
 
   const codeScanner = useCodeScanner({
@@ -17,7 +18,23 @@ export default function QRScanner() {
     },
   });
 
-  if (!device) return <Text>Đang tải camera...</Text>;
+  useEffect(() => {
+    const requestPermission = async () => {
+      const status = await Camera.requestCameraPermission();
+      if (status === 'granted') {
+        setHasPermission(true);
+      } else {
+        console.warn('Camera permission denied');
+      }
+    };
+    requestPermission();
+  }, []);
+
+  if (!hasPermission) {
+    return <Text>Chưa cấp quyền sử dụng camera</Text>;
+  }
+
+  if (!device) return <Text>Không tìm thấy camera</Text>;
 
   return (
     <View style={styles.flex1}>
