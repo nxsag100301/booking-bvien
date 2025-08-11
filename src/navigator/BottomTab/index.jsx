@@ -61,7 +61,7 @@ const TabIcon = ({ icon, focused, isMiddle, label }) => {
           style={{
             width: parseSizeWidth(36),
             height: parseSizeHeight(36),
-            tintColor: focused ? Colors.primary_600 : '#8E8E93',
+            tintColor: Colors.white,
           }}
           resizeMode="contain"
         />
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   middleButton: {
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.primary_600,
     width: parseSizeWidth(60),
     height: parseSizeHeight(60),
     borderRadius: parseSizeWidth(30),
