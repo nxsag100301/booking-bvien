@@ -2,20 +2,7 @@ import BottomTab from './BottomTab';
 import { createRef } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {
-  Booking,
-  DetailMedicalHistory,
-  DetailPaymentHistory,
-  ForgotPassword,
-  LoginCustomer,
-  LoginManager,
-  MedicalHistory,
-  PaymentHistory,
-  Profile,
-  Report,
-  StartScreen,
-  TestPdf,
-} from '../screens';
+import { BookAPakage, Booking, SelectFacility, TestPdf } from '../screens';
 import { useSelector } from 'react-redux';
 
 export const navigationRef = createRef();
@@ -32,42 +19,30 @@ const MyTheme = {
 
 const Navigation = () => {
   const user = useSelector(state => state.user.currentUser);
-  const isLogin = true;
   return (
     <NavigationContainer ref={navigationRef} theme={MyTheme}>
       <Stack.Navigator
-        initialRouteName={isLogin ? 'bottomTab' : 'startScreen'}
+        initialRouteName={'bottomTab'}
         screenOptions={{
           headerShown: false,
           gestureEnabled: false,
         }}
       >
-        {isLogin ? (
-          <>
-            <Stack.Screen name="bottomTab" component={BottomTab} />
-            <Stack.Screen name="booking" component={Booking} />
-            <Stack.Screen name="report" component={Report} />
-            <Stack.Screen name="profile" component={Profile} />
-            <Stack.Screen name="medicalHistory" component={MedicalHistory} />
-            <Stack.Screen
-              name="detailMedicalHistory"
-              component={DetailMedicalHistory}
-            />
-            <Stack.Screen name="paymentHistory" component={PaymentHistory} />
-            <Stack.Screen
-              name="detailPaymentHistory"
-              component={DetailPaymentHistory}
-            />
-            <Stack.Screen name="testPdf" component={TestPdf} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="startScreen" component={StartScreen} />
-            <Stack.Screen name="loginManager" component={LoginManager} />
-            <Stack.Screen name="loginCustomer" component={LoginCustomer} />
-            <Stack.Screen name="forgotPassword" component={ForgotPassword} />
-          </>
-        )}
+        <Stack.Screen name="bottomTab" component={BottomTab} />
+
+        {/* Booking */}
+        <Stack.Screen name="booking" component={Booking} />
+        <Stack.Screen name="bookapakage" component={BookAPakage} />
+        <Stack.Screen name="selectfacility" component={SelectFacility} />
+
+        {/* Medical History */}
+
+        {/* Payment History */}
+
+        {/* Pdf */}
+        <Stack.Screen name="testPdf" component={TestPdf} />
+
+        {/* Login */}
       </Stack.Navigator>
     </NavigationContainer>
   );

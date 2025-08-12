@@ -34,7 +34,13 @@ const BannerCarousel = () => {
         width={Width - parseSizeWidth(32)}
         height={parseSizeHeight(150)}
         snapEnabled={true}
-        autoPlayInterval={2000}
+        autoPlay={true}
+        autoPlayInterval={3000}
+        mode="parallax"
+        modeConfig={{
+          parallaxScrollingScale: 1,
+          parallaxScrollingOffset: -20,
+        }}
         data={data}
         renderItem={({ item }) => renderItem(item)}
       />

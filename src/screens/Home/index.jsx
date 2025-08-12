@@ -6,8 +6,10 @@ import MenuButton from './conponents/MenuButton';
 import { homeMenu } from '../../constants/data';
 import MyButton from '../../components/Button/MyButton';
 import BannerCarousel from './conponents/BannerCarousel';
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
+  const navigation = useNavigation();
   return (
     <ScrollView
       contentContainerStyle={styles.scrollContent}
@@ -27,6 +29,7 @@ const Home = () => {
         ))}
       </View>
       <MyButton
+        onPress={() => navigation.navigate('booking')}
         style={styles.buttonStyle}
         labelStyle={styles.labelButton}
         label="Đặt khám"

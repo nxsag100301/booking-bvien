@@ -1,39 +1,58 @@
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
 import MyHeader from '../../components/Header/MyHeader';
-import DoctorCard from './conponents/DoctorCard';
-import { parseSizeWidth } from '../../theme';
+import { parseSizeHeight, parseSizeWidth } from '../../theme';
+import SelectItem from './components/SelectItem';
+import MyButton from '../../components/Button/MyButton';
+import { useNavigation } from '@react-navigation/native';
 
-const groupedDoctors = [
+const initData = [
   {
-    title: 'Bác sĩ đa khoa',
-    data: Array.from({ length: 3 }),
+    title: 'Đặt khám theo gói khám',
+    description: 'Chọn gói khám phù hợp - Sức khoẻ trọn gói, an tâm tuyệt đối',
+    screen: 'selectfacility',
+    checked: false,
   },
   {
-    title: 'Bác sĩ cơ xương khớp',
-    data: Array.from({ length: 5 }),
+    title: 'Đặt khám theo chuyên gia',
+    description: 'Chọn chuyên gia mong muốn, liệu trình điều trị chuyên nghiệp',
+    screen: 'selectfacility',
+    checked: false,
+  },
+  {
+    title: 'Đặt khám theo ngày',
+    description: 'Đăng ký khám theo khung giờ tùy chọn',
+    screen: 'selectfacility',
+    checked: false,
   },
 ];
 
 const Booking = () => {
+  const navigation = useNavigation();
+  const [checkedItem, setCheckedItem] = useState(null);
+
   return (
     <>
       <MyHeader headerTitle="Đặt khám" />
-      <FlatList
-        data={groupedDoctors}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>{item.title}</Text>
-            {item.data.map((_, i) => (
-              <View key={i} style={styles.cardSpacing}>
-                <DoctorCard />
-              </View>
-            ))}
-          </View>
-        )}
-        contentContainerStyle={styles.listContent}
-        showsVerticalScrollIndicator={false}
-      />
+      <View style={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          {initData.map(item => (
+            <SelectItem
+              key={item.title}
+              title={item.title}
+              description={item.description}
+              screen={item.screen}
+              checked={checkedItem?.title === item?.title ? true : false}
+              onPress={() => setCheckedItem(item)}
+            />
+          ))}
+        </ScrollView>
+        <MyButton
+          onPress={() => navigation.navigate(checkedItem?.screen)}
+          label={'Tiếp tục'}
+          style={styles.button}
+        />
+      </View>
     </>
   );
 };
@@ -41,23 +60,19 @@ const Booking = () => {
 export default Booking;
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     flex: 1,
-    backgroundColor: '#fff',
   },
-  section: {
+  scrollViewContent: {
+    gap: parseSizeHeight(16),
+    paddingBottom: parseSizeHeight(80),
     paddingHorizontal: parseSizeWidth(16),
-    marginBottom: 20,
   },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  cardSpacing: {
-    marginBottom: 16,
-  },
-  listContent: {
-    paddingBottom: 40,
+  button: {
+    position: 'absolute',
+    bottom: parseSizeHeight(20),
+    left: parseSizeWidth(16),
+    right: parseSizeWidth(16),
+    height: parseSizeHeight(44),
   },
 });

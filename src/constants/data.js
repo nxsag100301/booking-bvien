@@ -1,60 +1,4 @@
 import icons from './icons';
-// const Pdf = require('../assets/pdf/mockPdf.pdf');
-
-// export const mockPdf = Pdf;
-
-export const mockData = [
-  {
-    icon: icons.booking,
-    label: 'Đặt khám',
-    screen: 'booking',
-  },
-  {
-    icon: icons.history,
-    label: 'Lịch sử khám',
-    screen: 'medicalHistory',
-  },
-  {
-    icon: icons.person,
-    label: 'Hồ sơ sức khỏe',
-    screen: 'testPdf',
-  },
-  // {
-  //   icon: icons.history,
-  //   label: 'Lịch sử tiêm chủng',
-  //   screen: null,
-  // },
-  {
-    icon: icons.payment,
-    label: 'Lịch sử thanh toán',
-    screen: 'paymentHistory',
-  },
-  // {
-  //   icon: icons.shield,
-  //   label: 'Cận lâm sàng khám bệnh ngoại trú',
-  //   screen: null,
-  // },
-  {
-    icon: icons.calendar,
-    label: 'Xem thống kê',
-    screen: 'report',
-  },
-  // {
-  //   icon: icons.wallet,
-  //   label: 'Hóa đơn GTGT',
-  //   screen: null,
-  // },
-  // {
-  //   icon: icons.run,
-  //   label: 'Theo dõi sức khỏe',
-  //   screen: null,
-  // },
-  // {
-  //   icon: icons.support,
-  //   label: 'Hỗ trợ',
-  //   screen: null,
-  // },
-];
 
 export const settings = [
   {
@@ -70,7 +14,7 @@ export const settings = [
   {
     title: 'Profile',
     icon: icons.person,
-    screen: 'profile',
+    screen: null,
   },
   {
     title: 'Notifications',
@@ -108,4 +52,19 @@ export const homeMenu = [
   { title: 'Tra cứu hoá đơn', icon: icons.bill, screen: '/' },
   { title: 'Lịch sử thanh toán', icon: icons.payment, screen: '/' },
   { title: 'Tư vấn đặt lịch', icon: icons.support, screen: '/' },
+];
+
+export const allFacilities = [
+  {
+    name: 'Bệnh viện Ung Bướu - Cơ sở 1',
+    address: 'Số 6 Nguyễn Huy Lượng, Phường Bình Thạnh, TP. Hồ Chí Minh',
+    phone: '(028) 38433022',
+    schedule: 'Thứ 2 - Thứ 6 (07:30 - 16:30)',
+  },
+  {
+    name: 'Bệnh viện Ung Bướu - Cơ sở 2',
+    address: 'Số 12 Đường 400, Phường Tăng Nhơn Phú, TP. Hồ Chí Minh',
+    phone: '(028) 36227722 - (028) 38433021',
+    schedule: 'Thứ 2 - Thứ 6 (07:30 - 16:30)',
+  },
 ];

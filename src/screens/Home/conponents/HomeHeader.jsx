@@ -30,15 +30,6 @@ const HomeHeader = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.baseContainer}>
-        <Image source={images.logo} style={styles.logoImage} />
-        <View style={styles.hospitalInfo}>
-          <Text style={styles.hospitalName}>Bệnh viên Ung Bướu - Cơ sở 2</Text>
-          <Text style={styles.hospitalAddress}>
-            Số 12 Đường 400, Khu phố 3, Thủ Đức, Hồ Chí Minh
-          </Text>
-        </View>
-      </View>
     </View>
   );
 };
@@ -73,28 +64,5 @@ const styles = StyleSheet.create({
     height: parseSizeHeight(28),
     borderRadius: parseSize(16),
     resizeMode: 'contain',
-  },
-  baseContainer: {
-    flexDirection: 'row',
-    gap: parseSizeWidth(16),
-    alignItems: 'center',
-  },
-  logoImage: {
-    height: parseSizeHeight(40),
-    width: parseSizeWidth(45),
-    resizeMode: 'contain',
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: Colors.primary_400,
-  },
-  hospitalInfo: {
-    gap: parseSizeHeight(2),
-  },
-  hospitalName: {
-    color: Colors.primary_600,
-    fontWeight: 600,
-  },
-  hospitalAddress: {
-    fontSize: Sizes.text_tagline2,
   },
 });

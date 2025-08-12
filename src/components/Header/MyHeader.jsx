@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { parseSizeHeight, parseSizeWidth, Sizes } from '../../theme';
+import { Colors, parseSizeHeight, parseSizeWidth, Sizes } from '../../theme';
 import { useNavigation } from '@react-navigation/native';
 import icons from '../../constants/icons';
 
@@ -40,10 +40,12 @@ const styles = StyleSheet.create({
   backIcon: {
     height: '100%',
     width: '100%',
+    tintColor: Colors.primary_600,
   },
   headerTitle: {
     fontSize: Sizes.text_h6,
     fontWeight: 500,
+    color: Colors.primary_600,
   },
   fakeView: {
     height: parseSizeHeight(30),
