@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   button: {
     position: 'absolute',
-    bottom: parseSizeHeight(20),
+    bottom: 0,
     left: parseSizeWidth(16),
     right: parseSizeWidth(16),
     height: parseSizeHeight(44),

@@ -20,7 +20,7 @@ const data = [
   {
     name: 'Bệnh viện Ung Bướu - Cơ sở 2',
     address: 'Số 12 Đường 400, Khu phố 3, Thủ Đức, TP. Hồ Chí Minh',
-    image: images.banner2,
+    image: images.banner5,
   },
 ];
 
