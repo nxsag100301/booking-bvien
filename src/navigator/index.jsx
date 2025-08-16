@@ -2,7 +2,17 @@ import BottomTab from './BottomTab';
 import { createRef } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { BookAPakage, Booking, SelectFacility, TestPdf } from '../screens';
+import {
+  BookAPakage,
+  Booking,
+  BookingInformation,
+  ConfirmBookingInfo,
+  DetailPakage,
+  SelectFacility,
+  SelectSchedule,
+  SelectTime,
+  TestPdf,
+} from '../screens';
 import { useSelector } from 'react-redux';
 
 export const navigationRef = createRef();
@@ -32,8 +42,19 @@ const Navigation = () => {
 
         {/* Booking */}
         <Stack.Screen name="booking" component={Booking} />
-        <Stack.Screen name="bookapakage" component={BookAPakage} />
-        <Stack.Screen name="selectfacility" component={SelectFacility} />
+        <Stack.Screen name="bookAPakage" component={BookAPakage} />
+        <Stack.Screen name="selectFacility" component={SelectFacility} />
+        <Stack.Screen name="selectSchedule" component={SelectSchedule} />
+        <Stack.Screen name="selectTime" component={SelectTime} />
+        <Stack.Screen name="detailPakage" component={DetailPakage} />
+        <Stack.Screen
+          name="bookingInformation"
+          component={BookingInformation}
+        />
+        <Stack.Screen
+          name="confirmBookingInfo"
+          component={ConfirmBookingInfo}
+        />
 
         {/* Medical History */}
 

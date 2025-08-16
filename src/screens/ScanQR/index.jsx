@@ -5,7 +5,7 @@ import {
   useCameraDevice,
   useCodeScanner,
 } from 'react-native-vision-camera';
-import { Colors } from '../../theme';
+import { Colors, parseSizeHeight } from '../../theme';
 
 export default function QRScanner() {
   const [hasPermission, setHasPermission] = useState(false);
@@ -50,10 +50,6 @@ export default function QRScanner() {
         <Text style={styles.title}>Quét mã QR</Text>
 
         <View style={styles.qrFrame} />
-
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Đóng</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -65,30 +61,20 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'space-between',
+    gap: parseSizeHeight(68),
     alignItems: 'center',
     paddingVertical: 50,
   },
   title: {
     fontSize: 22,
-    color: 'black',
+    color: Colors.white,
     fontWeight: 'bold',
   },
   qrFrame: {
     width: 250,
     height: 250,
     borderWidth: 3,
-    borderColor: Colors.primary_600,
+    borderColor: Colors.gray_neutral_600,
     borderRadius: 20,
-  },
-  button: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
   },
 });

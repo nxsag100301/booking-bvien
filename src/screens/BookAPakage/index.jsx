@@ -10,6 +10,7 @@ import {
 import MyDropdown from '../../components/Dropdown/MyDropdown';
 import PakageCard from './components/PakageCard';
 import MyButton from '../../components/Button/MyButton';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const dataPakage = [
   { label: 'Tất cả gói', value: 'g0' },
@@ -40,6 +41,9 @@ const listPakage = [
 ];
 
 const BookAPakage = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { goBack = false } = route.params || {};
   const [selectedPakage, setSelectedPakage] = useState(dataPakage[0]);
   const [selectedGender, setSelectedGender] = useState(dataGender[1]);
   const [selectedAge, setSelectedAge] = useState(dataAge[0]);
@@ -84,7 +88,9 @@ const BookAPakage = () => {
           contentContainerStyle={styles.contentContainerStyle}
         />
         <MyButton
-          //   onPress={() => navigation.navigate(checkedItem?.screen)}
+          onPress={() =>
+            goBack ? navigation.goBack() : navigation.navigate('selectSchedule')
+          }
           label={'Tiếp tục'}
           style={styles.buttonContinue}
         />

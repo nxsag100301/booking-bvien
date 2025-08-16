@@ -7,10 +7,15 @@ import {
   parseSizeWidth,
   Sizes,
 } from '../../../theme';
+import { useNavigation } from '@react-navigation/native';
 
 const MenuButton = ({ title, icon, screen }) => {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      onPress={() => screen && navigation.navigate(screen)}
+      style={styles.container}
+    >
       <View style={styles.iconContainer}>
         <Image source={icon} style={styles.icon} />
       </View>

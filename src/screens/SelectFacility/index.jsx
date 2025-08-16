@@ -4,10 +4,12 @@ import MyHeader from '../../components/Header/MyHeader';
 import { parseSizeHeight, parseSizeWidth } from '../../theme';
 import { allFacilities } from '../../constants/data';
 import FacilityCard from '../../components/FacilityCard/FacilityCard';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const SelectFacility = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { goBack = false } = route.params || {};
   return (
     <>
       <MyHeader headerTitle="Chọn cơ sở khám" />
@@ -16,7 +18,9 @@ const SelectFacility = () => {
           <FacilityCard
             key={item.name}
             facility={item}
-            onPress={() => navigation.navigate('bookapakage')}
+            onPress={() =>
+              goBack ? navigation.goBack() : navigation.navigate('bookAPakage')
+            }
           />
         ))}
       </View>

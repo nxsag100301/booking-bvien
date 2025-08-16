@@ -11,7 +11,13 @@ const MyHeader = ({ headerTitle }) => {
         onPress={() => navigation.goBack()}
         style={styles.backContainer}
       >
-        <Image source={icons.back} tintColor="black" style={styles.backIcon} />
+        <View style={styles.backWrapper}>
+          <Image
+            source={icons.back}
+            tintColor="black"
+            style={styles.backIcon}
+          />
+        </View>
       </TouchableOpacity>
       <Text style={styles.headerTitle}>
         {headerTitle ? headerTitle : 'No header'}
@@ -34,8 +40,12 @@ const styles = StyleSheet.create({
   },
   backContainer: {
     height: parseSizeHeight(30),
+    width: parseSizeWidth(36),
+    borderRadius: 9999,
+  },
+  backWrapper: {
+    height: parseSizeHeight(30),
     width: parseSizeWidth(12),
-    borderRadius: 50,
   },
   backIcon: {
     height: '100%',
@@ -44,11 +54,11 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: Sizes.text_h6,
-    fontWeight: 500,
+    fontWeight: 600,
     color: Colors.primary_600,
   },
   fakeView: {
     height: parseSizeHeight(30),
-    width: parseSizeWidth(12),
+    width: parseSizeWidth(36),
   },
 });

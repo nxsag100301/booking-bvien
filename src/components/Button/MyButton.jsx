@@ -31,7 +31,13 @@ const MyButton = ({
         style,
       ]}
     >
-      {startIcon && <Image source={startIcon} style={styles.startIcon} />}
+      {startIcon && (
+        <Image
+          source={startIcon}
+          style={styles.startIcon}
+          tintColor={variant === 'outline' ? labelColor : Colors.white}
+        />
+      )}
       <Text
         style={[
           styles.label,
@@ -60,6 +66,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: parseSizeWidth(12),
     paddingVertical: parseSizeHeight(6),
     backgroundColor: Colors.primary_600,
+    borderWidth: 1,
+    borderColor: Colors.primary_600,
   },
   containerOutline: {
     borderRadius: Sizes.radius,

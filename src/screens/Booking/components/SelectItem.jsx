@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
 
     elevation: 8,
-    marginVertical: parseSizeHeight(8),
     padding: parseSize(16),
     backgroundColor: Colors.white,
     borderRadius: Sizes.radius,

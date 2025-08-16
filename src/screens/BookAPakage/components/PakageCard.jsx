@@ -2,8 +2,10 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Colors, parseSize, parseSizeHeight, Sizes } from '../../../theme';
 import MyButton from '../../../components/Button/MyButton';
+import { useNavigation } from '@react-navigation/native';
 
 const PakageCard = ({ pakage, checked, onPress }) => {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -23,6 +25,7 @@ const PakageCard = ({ pakage, checked, onPress }) => {
           label="Xem chi tiết"
           labelColor={Colors.primary_600}
           style={styles.button}
+          onPress={() => navigation.navigate('detailPakage')}
         />
       </View>
     </TouchableOpacity>

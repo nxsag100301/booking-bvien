@@ -44,14 +44,14 @@ export const settings = [
 ];
 
 export const homeMenu = [
-  { title: 'Đặt khám theo gói', icon: icons.booking, screen: '/' },
-  { title: 'Đặt khám theo chuyên gia', icon: icons.booking, screen: '/' },
-  { title: 'Đặt khám theo ngày', icon: icons.booking, screen: '/' },
-  { title: 'Lịch hẹn khám', icon: icons.calendar, screen: '/' },
-  { title: 'Kết quả khám', icon: icons.shield, screen: '/' },
-  { title: 'Tra cứu hoá đơn', icon: icons.bill, screen: '/' },
-  { title: 'Lịch sử thanh toán', icon: icons.payment, screen: '/' },
-  { title: 'Tư vấn đặt lịch', icon: icons.support, screen: '/' },
+  { title: 'Đặt khám theo gói', icon: icons.booking, screen: 'booking' },
+  { title: 'Đặt khám theo chuyên gia', icon: icons.booking, screen: null },
+  { title: 'Đặt khám theo ngày', icon: icons.booking, screen: null },
+  { title: 'Lịch hẹn khám', icon: icons.calendar, screen: null },
+  { title: 'Kết quả khám', icon: icons.shield, screen: null },
+  { title: 'Tra cứu hoá đơn', icon: icons.bill, screen: null },
+  { title: 'Lịch sử thanh toán', icon: icons.payment, screen: null },
+  { title: 'Tư vấn đặt lịch', icon: icons.support, screen: null },
 ];
 
 export const allFacilities = [
