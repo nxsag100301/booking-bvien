@@ -11,6 +11,7 @@ import MyDropdown from '../../components/Dropdown/MyDropdown';
 import PakageCard from './components/PakageCard';
 import MyButton from '../../components/Button/MyButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 const dataPakage = [
   { label: 'Tất cả gói', value: 'g0' },
@@ -48,6 +49,18 @@ const BookAPakage = () => {
   const [selectedGender, setSelectedGender] = useState(dataGender[1]);
   const [selectedAge, setSelectedAge] = useState(dataAge[0]);
   const [checkedItem, setCheckedItem] = useState(null);
+
+  const handleContinue = () => {
+    if (!checkedItem) {
+      return Toast.show({
+        type: 'error',
+        text1: 'Lỗi',
+        text2: 'Bạn chưa chọn gói khám',
+      });
+    }
+    goBack ? navigation.goBack() : navigation.navigate('selectSchedule');
+  };
+
   return (
     <>
       <MyHeader headerTitle="Chọn gói khám" />
@@ -88,9 +101,7 @@ const BookAPakage = () => {
           contentContainerStyle={styles.contentContainerStyle}
         />
         <MyButton
-          onPress={() =>
-            goBack ? navigation.goBack() : navigation.navigate('selectSchedule')
-          }
+          onPress={handleContinue}
           label={'Tiếp tục'}
           style={styles.buttonContinue}
         />

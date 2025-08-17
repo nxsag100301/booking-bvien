@@ -12,6 +12,9 @@ import SelectTime from './SelectTime';
 import DetailPakage from './DetailPakage';
 import BookingInformation from './BookingInfomation';
 import ConfirmBookingInfo from './ConfirmBookingInfo';
+import AppointmentSuccessful from './AppointmentSuccessful';
+import SelectPaymentMethod from './SelectPaymentMethod';
+import PaymentInformation from './PaymentInformation';
 
 export {
   Home,
@@ -28,4 +31,7 @@ export {
   DetailPakage,
   BookingInformation,
   ConfirmBookingInfo,
+  AppointmentSuccessful,
+  SelectPaymentMethod,
+  PaymentInformation,
 };

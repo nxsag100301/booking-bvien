@@ -5,6 +5,7 @@ import { parseSizeHeight, parseSizeWidth } from '../../theme';
 import SelectItem from './components/SelectItem';
 import MyButton from '../../components/Button/MyButton';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 const initData = [
   {
@@ -31,6 +32,17 @@ const Booking = () => {
   const navigation = useNavigation();
   const [checkedItem, setCheckedItem] = useState(null);
 
+  const handleContinue = () => {
+    if (!checkedItem) {
+      return Toast.show({
+        type: 'error',
+        text1: 'Lỗi',
+        text2: 'Bạn chưa chọn loại khám',
+      });
+    }
+    navigation.navigate(checkedItem.screen);
+  };
+
   return (
     <>
       <MyHeader headerTitle="Đặt khám" />
@@ -54,9 +66,7 @@ const Booking = () => {
           style={styles.flatlistStyle}
         />
         <MyButton
-          onPress={() =>
-            checkedItem?.screen && navigation.navigate(checkedItem.screen)
-          }
+          onPress={handleContinue}
           label={'Tiếp tục'}
           style={styles.button}
         />

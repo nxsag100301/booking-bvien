@@ -41,6 +41,12 @@ import back from '../assets/icons/back.png';
 import eyeOpen from '../assets/icons/eye-open.png';
 import eyeOff from '../assets/icons/eye-off.png';
 import scan from '../assets/icons/scan.png';
+import confirm from '../assets/icons/confirm.png';
+import visa from '../assets/icons/visa.png';
+import bank from '../assets/icons/bank.png';
+import cash from '../assets/icons/cash.png';
+import qr from '../assets/icons/qr.png';
+import download from '../assets/icons/download.png';
 
 export default {
   eyeOpen,
@@ -86,4 +92,10 @@ export default {
   edit,
   menu,
   scan,
+  confirm,
+  visa,
+  bank,
+  cash,
+  qr,
+  download,
 };

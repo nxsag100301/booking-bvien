@@ -5,6 +5,7 @@ import { parseSizeHeight, parseSizeWidth } from '../../theme';
 import TimeCard from './components/TimeCard';
 import MyButton from '../../components/Button/MyButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 const data = [
   { date: 'Thứ 2 - 17/08/2025', time: '8:00 - 9:00' },
@@ -20,6 +21,18 @@ const SelectTime = () => {
   const route = useRoute();
   const { goBack = false } = route.params || {};
   const [checkedItem, setCheckedItem] = useState(null);
+
+  const handleContinue = () => {
+    if (!checkedItem) {
+      return Toast.show({
+        type: 'error',
+        text1: 'Lỗi',
+        text2: 'Bạn chưa chọn giờ khám',
+      });
+    }
+    goBack ? navigation.goBack() : navigation.navigate('bookingInformation');
+  };
+
   return (
     <>
       <MyHeader headerTitle="Chọn giờ khám" />
@@ -37,11 +50,7 @@ const SelectTime = () => {
           style={styles.flatListStyle}
         />
         <MyButton
-          onPress={() =>
-            goBack
-              ? navigation.goBack()
-              : navigation.navigate('bookingInformation')
-          }
+          onPress={handleContinue}
           label={'Tiếp tục'}
           style={styles.buttonContinue}
         />

@@ -3,12 +3,15 @@ import { createRef } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
+  AppointmentSuccessful,
   BookAPakage,
   Booking,
   BookingInformation,
   ConfirmBookingInfo,
   DetailPakage,
+  PaymentInformation,
   SelectFacility,
+  SelectPaymentMethod,
   SelectSchedule,
   SelectTime,
   TestPdf,
@@ -54,6 +57,20 @@ const Navigation = () => {
         <Stack.Screen
           name="confirmBookingInfo"
           component={ConfirmBookingInfo}
+        />
+        <Stack.Screen
+          name="appointmentSuccessful"
+          component={AppointmentSuccessful}
+        />
+
+        {/* Payment */}
+        <Stack.Screen
+          name="selectPaymentMethod"
+          component={SelectPaymentMethod}
+        />
+        <Stack.Screen
+          name="paymentInformation"
+          component={PaymentInformation}
         />
 
         {/* Medical History */}
