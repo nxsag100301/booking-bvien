@@ -19,7 +19,9 @@ const SelectFacility = () => {
             key={item.name}
             facility={item}
             onPress={() =>
-              goBack ? navigation.goBack() : navigation.navigate('bookAPakage')
+              goBack
+                ? navigation.goBack()
+                : navigation.navigate('selectProfile')
             }
           />
         ))}

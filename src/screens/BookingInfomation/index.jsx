@@ -19,7 +19,11 @@ const BookingInformation = () => {
             value="Cơ sở 1"
             screen="selectFacility"
           />
-          <CustomInput label="Hồ sơ khám" value="Nguyễn Văn A" screen={null} />
+          <CustomInput
+            label="Hồ sơ khám"
+            value="Nguyễn Văn A"
+            screen="selectProfile"
+          />
           <CustomInput
             label="Gói khám"
             value="Gói người lớn"

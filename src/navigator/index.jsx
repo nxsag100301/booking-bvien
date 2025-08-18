@@ -9,9 +9,12 @@ import {
   BookingInformation,
   ConfirmBookingInfo,
   DetailPakage,
+  Login,
   PaymentInformation,
+  Register,
   SelectFacility,
   SelectPaymentMethod,
+  SelectProfile,
   SelectSchedule,
   SelectTime,
   TestPdf,
@@ -62,6 +65,7 @@ const Navigation = () => {
           name="appointmentSuccessful"
           component={AppointmentSuccessful}
         />
+        <Stack.Screen name="selectProfile" component={SelectProfile} />
 
         {/* Payment */}
         <Stack.Screen
@@ -81,6 +85,8 @@ const Navigation = () => {
         <Stack.Screen name="testPdf" component={TestPdf} />
 
         {/* Login */}
+        <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="register" component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   );

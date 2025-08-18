@@ -1,7 +1,13 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  PermissionsAndroid,
+  Platform,
+} from 'react-native';
 import { useEffect, useState, useRef } from 'react';
 import ViewShot from 'react-native-view-shot';
-import Share from 'react-native-share';
 import MyHeader from '../../components/Header/MyHeader';
 import {
   Colors,
@@ -12,8 +18,12 @@ import {
 } from '../../theme';
 import icons from '../../constants/icons';
 import MyButton from '../../components/Button/MyButton';
+import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 
 const PaymentInformation = () => {
+  const navigation = useNavigation();
   const [timeLeft, setTimeLeft] = useState(15 * 60);
   const qrRef = useRef();
 
@@ -31,15 +41,51 @@ const PaymentInformation = () => {
     return `${m}:${s}`;
   };
 
-  const onShareQr = async () => {
+  const onDownloadQr = async () => {
     try {
       const uri = await qrRef.current.capture();
-      await Share.open({
-        url: uri,
+      if (Platform.OS === 'android') {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Quyền truy cập bộ nhớ',
+            message: 'Ứng dụng cần quyền để lưu hình ảnh vào thư viện',
+            buttonNeutral: 'Hỏi lại sau',
+            buttonNegative: 'Hủy',
+            buttonPositive: 'Đồng ý',
+          },
+        );
+
+        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('Không có quyền lưu ảnh');
+          return;
+        }
+      }
+
+      await CameraRoll.saveAsset(uri, { type: 'photo' });
+
+      Toast.show({
+        type: 'success',
+        text1: 'Thành công',
+        text2: 'Ảnh QR đã được lưu vào thư viện',
       });
     } catch (err) {
-      console.log(err);
+      console.log('Lỗi lưu ảnh:', err);
+      Toast.show({
+        type: 'error',
+        text1: 'Lỗi',
+        text2: 'Không thể lưu ảnh QR',
+      });
     }
+  };
+
+  const handleConfirm = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Thành công',
+      text2: 'Bạn đã đặt khám thành công',
+    });
+    navigation.navigate('bottomTab');
   };
 
   return (
@@ -67,7 +113,7 @@ const PaymentInformation = () => {
           label="Tải mã thanh toán"
           style={styles.button}
           startIcon={icons.download}
-          onPress={onShareQr}
+          onPress={onDownloadQr}
         />
 
         <View style={styles.infoLineContainer}>
@@ -83,6 +129,11 @@ const PaymentInformation = () => {
           <Text style={styles.valueInfo}>Bệnh viện Ung Bướu - Cơ sở 2</Text>
         </View>
       </View>
+      <MyButton
+        onPress={handleConfirm}
+        label={'Xác nhận'}
+        style={styles.buttonContinue}
+      />
     </>
   );
 };
@@ -99,7 +150,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   time: {
-    fontWeight: 600,
+    fontWeight: '600',
     color: Colors.primary_600,
   },
   description: {
@@ -114,6 +165,7 @@ const styles = StyleSheet.create({
     margin: parseSize(16),
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   qrImage: {
     height: parseSizeHeight(250),
@@ -122,7 +174,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: parseSizeHeight(44),
-    marginBottom: parseSizeHeight(24),
+    marginBottom: parseSizeHeight(16),
   },
   infoLineContainer: {
     flexDirection: 'row',
@@ -136,6 +188,13 @@ const styles = StyleSheet.create({
     width: '50%',
     fontSize: Sizes.text_subtitle1,
     color: Colors.primary_600,
-    fontWeight: 500,
+    fontWeight: '500',
+  },
+  buttonContinue: {
+    position: 'absolute',
+    bottom: 0,
+    left: parseSizeWidth(16),
+    right: parseSizeWidth(16),
+    height: parseSizeHeight(44),
   },
 });

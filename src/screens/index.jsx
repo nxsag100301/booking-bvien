@@ -15,6 +15,9 @@ import ConfirmBookingInfo from './ConfirmBookingInfo';
 import AppointmentSuccessful from './AppointmentSuccessful';
 import SelectPaymentMethod from './SelectPaymentMethod';
 import PaymentInformation from './PaymentInformation';
+import SelectProfile from './SelectProfile';
+import Login from './Login';
+import Register from './Register';
 
 export {
   Home,
@@ -34,4 +37,7 @@ export {
   AppointmentSuccessful,
   SelectPaymentMethod,
   PaymentInformation,
+  SelectProfile,
+  Login,
+  Register,
 };

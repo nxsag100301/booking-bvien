@@ -47,6 +47,7 @@ import bank from '../assets/icons/bank.png';
 import cash from '../assets/icons/cash.png';
 import qr from '../assets/icons/qr.png';
 import download from '../assets/icons/download.png';
+import file from '../assets/icons/file.png';
 
 export default {
   eyeOpen,
@@ -98,4 +99,5 @@ export default {
   cash,
   qr,
   download,
+  file,
 };
