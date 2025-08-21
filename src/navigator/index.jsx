@@ -3,12 +3,14 @@ import { createRef } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
+  AddProfile,
   AppointmentSuccessful,
   BookAPakage,
   Booking,
   BookingInformation,
   ConfirmBookingInfo,
   DetailPakage,
+  DetailProfile,
   Login,
   PaymentInformation,
   Register,
@@ -38,7 +40,7 @@ const Navigation = () => {
   return (
     <NavigationContainer ref={navigationRef} theme={MyTheme}>
       <Stack.Navigator
-        initialRouteName={'bottomTab'}
+        initialRouteName={'login'}
         screenOptions={{
           headerShown: false,
           gestureEnabled: false,
@@ -87,6 +89,10 @@ const Navigation = () => {
         {/* Login */}
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="register" component={Register} />
+
+        {/* Profile */}
+        <Stack.Screen name="addProfile" component={AddProfile} />
+        <Stack.Screen name="detailProfile" component={DetailProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     height: parseSizeHeight(40),
     paddingHorizontal: parseSizeWidth(32),
     borderRadius: parseSize(8),
+    borderColor: Colors.gray_neutral_400,
   },
   inputFocused: {
     borderColor: Colors.primary_600,

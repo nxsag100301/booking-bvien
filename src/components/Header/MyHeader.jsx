@@ -3,26 +3,37 @@ import { Colors, parseSizeHeight, parseSizeWidth, Sizes } from '../../theme';
 import { useNavigation } from '@react-navigation/native';
 import icons from '../../constants/icons';
 
-const MyHeader = ({ headerTitle }) => {
+const MyHeader = ({ headerTitle, endIcon, onPress, hiddenBack }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.backContainer}
-      >
-        <View style={styles.backWrapper}>
-          <Image
-            source={icons.back}
-            tintColor="black"
-            style={styles.backIcon}
-          />
-        </View>
-      </TouchableOpacity>
+      {!hiddenBack ? (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backContainer}
+        >
+          <View style={styles.backWrapper}>
+            <Image
+              source={icons.back}
+              tintColor="black"
+              style={styles.backIcon}
+            />
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.backContainer} />
+      )}
+
       <Text style={styles.headerTitle}>
         {headerTitle ? headerTitle : 'No header'}
       </Text>
-      <View style={styles.fakeView} />
+      {endIcon ? (
+        <TouchableOpacity style={styles.rightButtonContainer} onPress={onPress}>
+          <Image source={endIcon} tintColor="black" style={styles.endIcon} />
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.rightButtonContainer} />
+      )}
     </View>
   );
 };
@@ -57,8 +68,15 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     color: Colors.primary_600,
   },
-  fakeView: {
+  rightButtonContainer: {
     height: parseSizeHeight(30),
     width: parseSizeWidth(36),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  endIcon: {
+    width: parseSizeWidth(20),
+    height: parseSizeHeight(20),
+    tintColor: Colors.primary_600,
   },
 });

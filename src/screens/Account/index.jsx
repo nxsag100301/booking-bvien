@@ -37,7 +37,7 @@ const SettingItems = ({
   );
 };
 
-const Menu = () => {
+const Account = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -92,6 +92,8 @@ const Menu = () => {
     </ScrollView>
   );
 };
+
+export default Account;
 
 const styles = StyleSheet.create({
   scrollContainer: {
@@ -166,5 +168,3 @@ const styles = StyleSheet.create({
     height: parseSizeHeight(16),
   },
 });
-
-export default Menu;

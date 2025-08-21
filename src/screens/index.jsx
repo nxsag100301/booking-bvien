@@ -1,6 +1,5 @@
 import Home from './Home';
-import Menu from './Menu';
-import Notifications from './Notifications';
+import Account from './Account';
 import Search from './Search';
 import Booking from './Booking';
 import TestPdf from './TestPdf';
@@ -18,11 +17,13 @@ import PaymentInformation from './PaymentInformation';
 import SelectProfile from './SelectProfile';
 import Login from './Login';
 import Register from './Register';
+import ListProfile from './ListProfile';
+import AddProfile from './AddProfile';
+import DetailProfile from './DetailProfile';
 
 export {
   Home,
-  Menu,
-  Notifications,
+  Account,
   Search,
   Booking,
   TestPdf,
@@ -40,4 +41,7 @@ export {
   SelectProfile,
   Login,
   Register,
+  ListProfile,
+  AddProfile,
+  DetailProfile,
 };

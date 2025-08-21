@@ -2,7 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Home, Menu, Notifications, ScanQR, Search } from '../../screens';
+import { Account, Home, ListProfile, ScanQR, Search } from '../../screens';
 import icons from '../../constants/icons';
 import { Colors, parseSizeHeight, parseSizeWidth } from '../../theme';
 import { useNavigation } from '@react-navigation/native';
@@ -35,14 +35,14 @@ const bottomTab = [
   {
     id: 4,
     name: 'notifications',
-    component: Notifications,
-    icon: icons.info,
-    label: 'Tin y tế',
+    component: ListProfile,
+    icon: icons.fileOutline,
+    label: 'Hồ sơ',
   },
   {
     id: 5,
-    name: 'menu',
-    component: Menu,
+    name: 'account',
+    component: Account,
     icon: icons.person,
     label: 'Tài khoản',
   },
