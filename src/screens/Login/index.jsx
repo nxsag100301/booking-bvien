@@ -89,6 +89,9 @@ const Login = () => {
         <TouchableOpacity>
           <Text style={styles.forgotText}>Quên mật khẩu?</Text>
         </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.noAccount}>Chưa có tài khoản?</Text>
+        </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -133,6 +136,11 @@ const styles = StyleSheet.create({
     marginTop: parseSizeHeight(16),
     color: Colors.primary_500,
     fontSize: Sizes.text_body2,
-    textDecorationLine: 'underline',
+  },
+  noAccount: {
+    textAlign: 'center',
+    marginTop: parseSizeHeight(16),
+    color: Colors.gray_neutral_900,
+    fontSize: Sizes.text_body2,
   },
 });

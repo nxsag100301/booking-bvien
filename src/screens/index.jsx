@@ -20,6 +20,7 @@ import Register from './Register';
 import ListProfile from './ListProfile';
 import AddProfile from './AddProfile';
 import DetailProfile from './DetailProfile';
+import OTP from './OTP';
 
 export {
   Home,
@@ -44,4 +45,5 @@ export {
   ListProfile,
   AddProfile,
   DetailProfile,
+  OTP,
 };

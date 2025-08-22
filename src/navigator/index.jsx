@@ -12,6 +12,7 @@ import {
   DetailPakage,
   DetailProfile,
   Login,
+  OTP,
   PaymentInformation,
   Register,
   SelectFacility,
@@ -40,7 +41,7 @@ const Navigation = () => {
   return (
     <NavigationContainer ref={navigationRef} theme={MyTheme}>
       <Stack.Navigator
-        initialRouteName={'login'}
+        initialRouteName={'otp'}
         screenOptions={{
           headerShown: false,
           gestureEnabled: false,
@@ -93,6 +94,7 @@ const Navigation = () => {
         {/* Profile */}
         <Stack.Screen name="addProfile" component={AddProfile} />
         <Stack.Screen name="detailProfile" component={DetailProfile} />
+        <Stack.Screen name="otp" component={OTP} />
       </Stack.Navigator>
     </NavigationContainer>
   );
