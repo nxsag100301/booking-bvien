@@ -50,6 +50,7 @@ import download from '../assets/icons/download.png';
 import file from '../assets/icons/file.png';
 import fileOutline from '../assets/icons/fileOutline.png';
 import addFile from '../assets/icons/addFile.png';
+import refresh from '../assets/icons/refresh.png';
 
 export default {
   eyeOpen,
@@ -104,4 +105,5 @@ export default {
   file,
   fileOutline,
   addFile,
+  refresh,
 };

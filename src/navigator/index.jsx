@@ -41,7 +41,7 @@ const Navigation = () => {
   return (
     <NavigationContainer ref={navigationRef} theme={MyTheme}>
       <Stack.Navigator
-        initialRouteName={'otp'}
+        initialRouteName={'bottomTab'}
         screenOptions={{
           headerShown: false,
           gestureEnabled: false,

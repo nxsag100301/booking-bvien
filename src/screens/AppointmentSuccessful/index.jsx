@@ -47,8 +47,8 @@ const AppointmentSuccessful = () => {
         </View>
       </View>
       <MyButton
-        onPress={() => navigation.navigate('selectPaymentMethod')}
-        label={'Thanh toán'}
+        onPress={() => navigation.navigate('bottomTab')}
+        label={'Về trang chủ'}
         style={styles.buttonContinue}
       />
     </>

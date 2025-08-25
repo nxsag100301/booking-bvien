@@ -38,7 +38,7 @@ const ConfirmBookingInfo = () => {
       <View style={styles.buttonContainer}>
         <MyButton
           variant="outline"
-          label="Chỉnh sửa"
+          label="Quay lại"
           labelColor={Colors.primary_600}
           style={styles.buttonStyle}
           onPress={() => navigation.goBack()}

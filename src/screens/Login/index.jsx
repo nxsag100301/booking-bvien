@@ -13,6 +13,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import MyButton from '../../components/Button/MyButton';
+import { useNavigation } from '@react-navigation/native';
 
 const loginSchema = z.object({
   username: z.string().min(1, 'Vui lòng nhập tài khoản'),
@@ -20,6 +21,7 @@ const loginSchema = z.object({
 });
 
 const Login = () => {
+  const navigation = useNavigation();
   const {
     control,
     handleSubmit,
@@ -37,7 +39,7 @@ const Login = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: Colors.white }}>
+    <KeyboardAvoidingView style={styles.avoid}>
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
@@ -89,7 +91,7 @@ const Login = () => {
         <TouchableOpacity>
           <Text style={styles.forgotText}>Quên mật khẩu?</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('register')}>
           <Text style={styles.noAccount}>Chưa có tài khoản?</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -100,6 +102,10 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
+  avoid: {
+    flex: 1,
+    backgroundColor: Colors.white,
+  },
   container: {
     flexGrow: 1,
     paddingHorizontal: parseSizeWidth(24),
@@ -135,12 +141,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: parseSizeHeight(16),
     color: Colors.primary_500,
-    fontSize: Sizes.text_body2,
+    fontSize: Sizes.text_tagline1,
   },
   noAccount: {
     textAlign: 'center',
     marginTop: parseSizeHeight(16),
     color: Colors.gray_neutral_900,
-    fontSize: Sizes.text_body2,
+    fontSize: Sizes.text_tagline1,
   },
 });

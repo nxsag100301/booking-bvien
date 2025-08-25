@@ -29,7 +29,7 @@ const Home = () => {
         ))}
       </View>
       <MyButton
-        onPress={() => navigation.navigate('booking')}
+        onPress={() => navigation.navigate('selectFacility')}
         style={styles.buttonStyle}
         labelStyle={styles.labelButton}
         label="Đặt khám"

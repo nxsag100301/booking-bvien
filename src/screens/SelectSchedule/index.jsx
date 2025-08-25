@@ -59,7 +59,9 @@ const SelectSchedule = () => {
         </View>
         <MyButton
           onPress={() =>
-            goBack ? navigation.goBack() : navigation.navigate('selectTime')
+            goBack
+              ? navigation.goBack()
+              : navigation.navigate('confirmBookingInfo')
           }
           label={'Tiếp tục'}
           style={styles.buttonContinue}
