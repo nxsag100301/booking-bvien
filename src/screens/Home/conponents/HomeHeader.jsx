@@ -8,7 +8,6 @@ import {
   parseSizeWidth,
   Sizes,
 } from '../../../theme';
-import images from '../../../constants/images';
 
 const HomeHeader = () => {
   return (

@@ -51,8 +51,12 @@ import file from '../assets/icons/file.png';
 import fileOutline from '../assets/icons/fileOutline.png';
 import addFile from '../assets/icons/addFile.png';
 import refresh from '../assets/icons/refresh.png';
+import x from '../assets/icons/x.png';
+import gallery from '../assets/icons/gallery.png';
 
 export default {
+  gallery,
+  x,
   eyeOpen,
   eyeOff,
   back,
