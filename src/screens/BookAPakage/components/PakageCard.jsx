@@ -3,6 +3,7 @@ import React from 'react';
 import { Colors, parseSize, parseSizeHeight, Sizes } from '../../../theme';
 import MyButton from '../../../components/Button/MyButton';
 import { useNavigation } from '@react-navigation/native';
+import { formatVND } from '../../../utils/formatter';
 
 const PakageCard = ({ pakage, checked, onPress }) => {
   const navigation = useNavigation();
@@ -11,21 +12,24 @@ const PakageCard = ({ pakage, checked, onPress }) => {
       onPress={onPress}
       style={[styles.container, checked && styles.checked]}
     >
-      <Text style={styles.title}>
-        Gói tầm soát ung thu vòng Họng dành cho Nam
-      </Text>
-      <Text style={styles.description}>
-        Mô tả diễn giải cho gói khám. Mô tả diễn giải cho gói khám. Mô tả diễn
-        giải cho gói khám. Mô tả diễn giải cho gói khám
-      </Text>
+      <Text style={styles.title}>{pakage?.tenGoi}</Text>
+      <Text style={styles.description}>{pakage?.moTa}</Text>
       <View style={styles.bottomContentContainer}>
-        <Text style={styles.price}>111.000.000</Text>
+        <Text style={styles.price}>{formatVND(pakage?.tongTien)}</Text>
         <MyButton
           variant="outline"
           label="Xem chi tiết"
           labelColor={Colors.primary_600}
           style={styles.button}
-          onPress={() => navigation.navigate('detailPakage')}
+          onPress={() =>
+            navigation.navigate('detailPakage', {
+              pakageInfo: {
+                name: pakage?.tenGoi,
+                price: formatVND(pakage?.tongTien),
+                detail: pakage?.chiTiet,
+              },
+            })
+          }
         />
       </View>
     </TouchableOpacity>

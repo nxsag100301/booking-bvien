@@ -8,12 +8,24 @@ import {
   Sizes,
 } from '../../../theme';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const MenuButton = ({ title, icon, screen }) => {
   const navigation = useNavigation();
+  const user = useSelector(state => state.user.currentUser);
+
+  const handleNavigation = screenNavigate => {
+    if (!user) {
+      return navigation.navigate('login');
+    }
+    if (screenNavigate) {
+      return navigation.navigate(screenNavigate);
+    }
+  };
+
   return (
     <TouchableOpacity
-      onPress={() => screen && navigation.navigate(screen)}
+      onPress={() => handleNavigation(screen)}
       style={styles.container}
     >
       <View style={styles.iconContainer}>

@@ -7,9 +7,18 @@ import { homeMenu } from '../../constants/data';
 import MyButton from '../../components/Button/MyButton';
 import BannerCarousel from './conponents/BannerCarousel';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
   const navigation = useNavigation();
+  const user = useSelector(state => state.user.currentUser);
+  const handleBooking = () => {
+    if (!user) {
+      return navigation.navigate('login');
+    }
+    navigation.navigate('selectFacility');
+  };
+
   return (
     <ScrollView
       contentContainerStyle={styles.scrollContent}
@@ -29,7 +38,7 @@ const Home = () => {
         ))}
       </View>
       <MyButton
-        onPress={() => navigation.navigate('selectFacility')}
+        onPress={handleBooking}
         style={styles.buttonStyle}
         labelStyle={styles.labelButton}
         label="Đặt khám"

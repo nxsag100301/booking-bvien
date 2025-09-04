@@ -1,9 +1,9 @@
 import axios from '../utils/authorizeAxios';
 
-export const getStatisticalData = async data => {
+export const getPakage = async data => {
   const response = await axios.post(
-    '/HeThong/HT_BaoCaoBGD/api/bao-cao-BGD',
-    data,
+    '/api/QL_DangKyTheoGoi/GetGoiChiDinhTheoTuoiAsync',
+    { params: data },
   );
   return response.data;
 };

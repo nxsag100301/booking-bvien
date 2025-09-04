@@ -6,9 +6,3 @@ export const refreshTokenAPI = async refreshToken => {
   });
   return response.data;
 };
-
-export const getJson = async jsonFileName => {
-  // DM_VaiTron.json, DM_Khu.json
-  const response = await axios.get(`/dist/data/json/${jsonFileName}`);
-  return response.data;
-};

@@ -12,18 +12,18 @@ import icons from '../../constants/icons';
 const FacilityCard = ({ facility, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Text style={styles.name}>{facility.name}</Text>
+      <Text style={styles.name}>{facility.tenDoiTac}</Text>
       <View style={styles.subContent}>
         <Image source={icons.location} style={styles.icon} />
-        <Text>{facility.address}</Text>
+        <Text>{facility.diaChi}</Text>
       </View>
       <View style={styles.subContent}>
         <Image source={icons.phone} style={styles.icon} />
-        <Text>{facility.phone}</Text>
+        <Text>{facility.hotline}</Text>
       </View>
       <View style={styles.subContent}>
         <Image source={icons.calendar} style={styles.icon} />
-        <Text>{facility.schedule}</Text>
+        <Text>{facility.thoiGianLamViec}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
     tintColor: Colors.primary_600,
   },
   name: {
-    textAlign: 'center',
     fontSize: Sizes.text_subtitle1,
     fontWeight: 500,
     color: Colors.primary_600,

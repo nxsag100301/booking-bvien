@@ -9,18 +9,20 @@ import {
   Sizes,
 } from '../../theme';
 import MyButton from '../../components/Button/MyButton';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import icons from '../../constants/icons';
 
 const DetailPakage = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { pakageInfo } = route?.params;
   return (
     <View style={styles.container}>
       <MyHeader headerTitle="Thông tin gói khám" />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.headerContainer}>
-          <Text style={styles.title}>Gói tầm soát ung thư vòm họng</Text>
-          <Text style={styles.price}>111.111.111</Text>
+          <Text style={styles.title}>{pakageInfo?.name}</Text>
+          <Text style={styles.price}>{pakageInfo?.price}</Text>
         </View>
         <View style={styles.contentContainer}>
           <Text style={styles.contentTitle}>Thông tin công việc thực hiện</Text>

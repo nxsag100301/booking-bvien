@@ -42,8 +42,8 @@ const Account = () => {
   const navigation = useNavigation();
 
   const handleLogout = async () => {
-    await AsyncStorage.removeItem('access_token');
-    await AsyncStorage.removeItem('refresh_token');
+    await AsyncStorage.removeItem('accessToken');
+    await AsyncStorage.removeItem('refreshToken');
     dispatch(logOut());
   };
 

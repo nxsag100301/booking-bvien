@@ -1,44 +1,32 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import MyHeader from '../../components/Header/MyHeader';
-import {
-  Colors,
-  parseSize,
-  parseSizeHeight,
-  parseSizeWidth,
-} from '../../theme';
+import { Colors, parseSizeHeight, parseSizeWidth } from '../../theme';
 import MyDropdown from '../../components/Dropdown/MyDropdown';
 import PakageCard from './components/PakageCard';
 import MyButton from '../../components/Button/MyButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
+import { getPakage } from '../../api';
 
 const dataPakage = [
-  { label: 'Tất cả gói', value: 'g0' },
-  { label: 'Gói 1', value: 'g1' },
-  { label: 'Gói 2', value: 'g2' },
-  { label: 'Gói 3', value: 'g3' },
+  { label: 'Tất cả gói', value: 0 },
+  { label: 'Gói 1', value: 1 },
+  { label: 'Gói 2', value: 2 },
+  { label: 'Gói 3', value: 3 },
 ];
 
 const dataGender = [
-  { label: 'Tất cả', value: 'all' },
-  { label: 'Nam', value: 'male' },
-  { label: 'Nữ', value: 'female' },
+  { label: 'Tất cả', value: 1 },
+  { label: 'Nam', value: 2 },
+  { label: 'Nữ', value: 3 },
 ];
 
 const dataAge = [
-  { label: 'Tất cả', value: 'all' },
-  { label: 'Dưới 10 tuổi', value: 'd10' },
-  { label: 'Dưới 20 tuổi', value: 'd20' },
-  { label: 'Dưới 40 tuổi', value: 'd40' },
-];
-
-const listPakage = [
-  { id: '1', checked: false },
-  { id: '2', checked: false },
-  { id: '3', checked: false },
-  { id: '4', checked: false },
-  { id: '5', checked: false },
+  { label: 'Tất cả', value: 1 },
+  { label: 'Dưới 10 tuổi', value: 2 },
+  { label: 'Dưới 20 tuổi', value: 3 },
+  { label: 'Dưới 40 tuổi', value: 4 },
 ];
 
 const BookAPakage = () => {
@@ -49,6 +37,7 @@ const BookAPakage = () => {
   const [selectedGender, setSelectedGender] = useState(dataGender[1]);
   const [selectedAge, setSelectedAge] = useState(dataAge[0]);
   const [checkedItem, setCheckedItem] = useState(null);
+  const [listPakage, setListPakage] = useState([]);
 
   const handleContinue = () => {
     if (!checkedItem) {
@@ -60,6 +49,24 @@ const BookAPakage = () => {
     }
     goBack ? navigation.goBack() : navigation.navigate('selectSchedule');
   };
+
+  useEffect(() => {
+    const fetchListPakage = async () => {
+      try {
+        const res = await getPakage({
+          tuoi: selectedAge,
+          loaiGoi: selectedPakage,
+          idGT: selectedGender,
+        });
+        if (res?.statusCode === 200) {
+          setListPakage(res?.data);
+        }
+      } catch (error) {
+        console.log('get pakage err: ', error);
+      }
+    };
+    fetchListPakage();
+  }, [selectedAge, selectedPakage, selectedGender]);
 
   return (
     <>

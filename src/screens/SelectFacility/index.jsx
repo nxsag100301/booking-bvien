@@ -1,22 +1,40 @@
 import { StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MyHeader from '../../components/Header/MyHeader';
 import { parseSizeHeight, parseSizeWidth } from '../../theme';
 import { allFacilities } from '../../constants/data';
 import FacilityCard from '../../components/FacilityCard/FacilityCard';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { getFacility } from '../../api/facility';
 
 const SelectFacility = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { goBack = false } = route.params || {};
+
+  const [listFacility, setListFacility] = useState([]);
+
+  useEffect(() => {
+    const fetchFacility = async () => {
+      try {
+        const res = await getFacility();
+        if (res.statusCode === 200) {
+          setListFacility(res?.data);
+        }
+      } catch (error) {
+        console.log('get facility err: ', error);
+      }
+    };
+    fetchFacility();
+  }, []);
+
   return (
     <>
       <MyHeader headerTitle="Chọn cơ sở khám" />
       <View style={styles.container}>
-        {allFacilities.map(item => (
+        {listFacility.map(item => (
           <FacilityCard
-            key={item.name}
+            key={item.id}
             facility={item}
             onPress={() =>
               goBack ? navigation.goBack() : navigation.navigate('bookAPakage')

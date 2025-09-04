@@ -10,10 +10,12 @@ const initialState = {
 export const userLoginAPI = createAsyncThunk(
   'user/userLoginAPI',
   async data => {
-    const res = await axios.post('/api/loginmobie', data);
-    const { access_token, refresh_token } = res.data;
-    await AsyncStorage.setItem('access_token', access_token);
-    await AsyncStorage.setItem('refresh_token', refresh_token);
+    const res = await axios.post('/api/HT_DangNhap/login', null, {
+      params: { username: data.username, password: data.password },
+    });
+    const { accessToken, refreshToken } = res?.data?.tokenInfor;
+    await AsyncStorage.setItem('accessToken', accessToken);
+    await AsyncStorage.setItem('refreshToken', refreshToken);
     return res.data;
   },
 );
@@ -28,7 +30,7 @@ export const userSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(userLoginAPI.fulfilled, (state, action) => {
-      state.currentUser = jwtDecode(action.payload.access_token);
+      state.currentUser = jwtDecode(action.payload?.tokenInfor?.accessToken);
     });
   },
 });

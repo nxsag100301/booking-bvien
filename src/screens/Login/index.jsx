@@ -6,14 +6,19 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
+  Image,
 } from 'react-native';
-import MyTextInput from '../../components/Input/MyTextInput';
-import { parseSizeWidth, parseSizeHeight, Colors, Sizes } from '../../theme';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import MyButton from '../../components/Button/MyButton';
 import { useNavigation } from '@react-navigation/native';
+import { z } from 'zod';
+import { useDispatch } from 'react-redux';
+
+import MyTextInput from '../../components/Input/MyTextInput';
+import { parseSizeWidth, parseSizeHeight, Colors, Sizes } from '../../theme';
+import MyButton from '../../components/Button/MyButton';
+import icons from '../../constants/icons';
+import { userLoginAPI } from '../../redux/slice/userSlice';
 
 const loginSchema = z.object({
   username: z.string().min(1, 'Vui lòng nhập tài khoản'),
@@ -22,6 +27,7 @@ const loginSchema = z.object({
 
 const Login = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -34,15 +40,31 @@ const Login = () => {
     },
   });
 
-  const onSubmit = data => {
-    console.log('data: ', data);
+  const onSubmit = async data => {
+    try {
+      const res = await dispatch(userLoginAPI(data)).unwrap();
+      if (res?.thongTinBenhNhan?.statusCode === 200) {
+        navigation.goBack();
+      }
+    } catch (err) {
+      console.log('Login failed:', err);
+    }
   };
 
   return (
     <KeyboardAvoidingView style={styles.avoid}>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.header}
+      >
+        <Image source={icons.back} tintColor="black" style={styles.backIcon} />
+        <Text style={styles.backTxt}>Trở lại</Text>
+      </TouchableOpacity>
+
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
         <Text style={styles.title}>Chào mừng trở lại!</Text>
         <Text style={styles.subtitle}>Đăng nhập để tiếp tục</Text>
@@ -105,12 +127,13 @@ const styles = StyleSheet.create({
   avoid: {
     flex: 1,
     backgroundColor: Colors.white,
+    paddingHorizontal: parseSizeWidth(24),
   },
   container: {
     flexGrow: 1,
-    paddingHorizontal: parseSizeWidth(24),
     justifyContent: 'center',
     backgroundColor: Colors.white,
+    marginTop: parseSizeHeight(-20),
   },
   title: {
     fontSize: Sizes.text_header1 + 4,
@@ -148,5 +171,22 @@ const styles = StyleSheet.create({
     marginTop: parseSizeHeight(16),
     color: Colors.gray_neutral_900,
     fontSize: Sizes.text_tagline1,
+  },
+  backIcon: {
+    height: parseSizeHeight(30),
+    width: parseSizeWidth(15),
+    tintColor: Colors.primary_600,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    gap: parseSizeWidth(8),
+    marginTop: parseSizeHeight(16),
+  },
+  backTxt: {
+    fontSize: Sizes.text_subtitle1,
+    fontWeight: 600,
+    color: Colors.primary_600,
   },
 });
