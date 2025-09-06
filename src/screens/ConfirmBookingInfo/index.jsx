@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import MyHeader from '../../components/Header/MyHeader';
-import { Colors, parseSizeHeight, parseSizeWidth } from '../../theme';
+import { Colors, parseSizeHeight, parseSizeWidth, Sizes } from '../../theme';
 import MyButton from '../../components/Button/MyButton';
 import { useNavigation } from '@react-navigation/native';
 
@@ -20,10 +20,10 @@ const ConfirmBookingInfo = () => {
     <>
       <MyHeader headerTitle="Xác nhận thông tin" />
       <View style={styles.container}>
+        <Text style={styles.title}>Hệ thống đã sắp xếp lịch cho quý khách</Text>
         <InformationLine label="Khách hàng" value="Trần Lê Tiến Hoà" />
         <InformationLine label="Ngày sinh" value="18/08/2000" />
         <InformationLine label="Dịch vụ" value="Đăng ký theo gói khám" />
-        <InformationLine label="Bác sĩ" value="An Hùng Cường" />
         <InformationLine
           label="Cơ sở khám"
           value="Bệnh viện Ung Bướu - Cơ sở 2"
@@ -83,5 +83,12 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     height: parseSizeHeight(44),
+  },
+  title: {
+    fontSize: Sizes.text_h6,
+    textTransform: 'uppercase',
+    fontWeight: '500',
+    textAlign: 'center',
+    color: Colors.success_700,
   },
 });

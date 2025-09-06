@@ -1,8 +1,10 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { logOut } from '../redux/slice/userSlice';
-import { refreshTokenAPI } from '../api/auth';
+import Config from 'react-native-config';
 import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { refreshTokenAPI } from '../api/auth';
+import { logOut } from '../redux/slice/userSlice';
 import { setGlobalLoading } from '../redux/slice/loadingSlice';
 
 let axiosReduxStore;
@@ -11,7 +13,7 @@ export const injectStore = mainStore => {
 };
 
 let authorizeAxiosInstance = axios.create({
-  baseURL: 'https://dangkyonlineungbuou.sixossoft.com', // Config.URL_API
+  baseURL: Config.URL_API,
 });
 
 authorizeAxiosInstance.defaults.timeout = 1000 * 60 * 10;
@@ -59,7 +61,10 @@ authorizeAxiosInstance.interceptors.response.use(
         const refreshToken = await AsyncStorage.getItem('refreshToken');
         refreshTokenPromise = refreshTokenAPI(refreshToken)
           .then(data => {
-            return data?.accessToken;
+            return {
+              accessToken: data?.accessToken,
+              refreshToken: data?.refreshToken,
+            };
           })
           .catch(_error => {
             axiosReduxStore.dispatch(logOut());
@@ -70,9 +75,10 @@ authorizeAxiosInstance.interceptors.response.use(
           });
       }
 
-      return refreshTokenPromise.then(async accessToken => {
+      return refreshTokenPromise.then(async ({ accessToken, refreshToken }) => {
         // Bước 1: Nếu dự án cần lưu accessToken vào localStorage hoặc nơi khác thì xử lý ở đây
         await AsyncStorage.setItem('accessToken', accessToken);
+        await AsyncStorage.setItem('refreshToken', refreshToken);
         // Bước 2: Return lại axios instance kết hợp các originalRequests để gọi lại những api bị lỗi hết hạn accessToken
         return authorizeAxiosInstance(originalRequests);
       });
@@ -82,7 +88,7 @@ authorizeAxiosInstance.interceptors.response.use(
     if (error.response?.data?.message) {
       errMessage = error.response?.data?.message;
     }
-    if (error.response?.status !== 410) {
+    if (error.response?.status !== 401) {
       console.log('errMessage from interceptor: ', errMessage);
       Toast.show({
         type: 'error',

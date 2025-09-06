@@ -1,13 +1,16 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
+
 import MyHeader from '../../components/Header/MyHeader';
 import { Colors, parseSizeHeight, parseSizeWidth } from '../../theme';
 import MyDropdown from '../../components/Dropdown/MyDropdown';
 import PakageCard from './components/PakageCard';
 import MyButton from '../../components/Button/MyButton';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
 import { getPakage } from '../../api';
+import { useDispatch } from 'react-redux';
+import { setBookingData } from '../../redux/slice/bookingSlice';
 
 const dataPakage = [
   { label: 'Tất cả gói', value: 0 },
@@ -30,9 +33,10 @@ const dataAge = [
 ];
 
 const BookAPakage = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const route = useRoute();
-  const { goBack = false } = route.params || {};
+  // const route = useRoute();
+  // const { goBack = false } = route.params || {};
   const [selectedPakage, setSelectedPakage] = useState(dataPakage[0]);
   const [selectedGender, setSelectedGender] = useState(dataGender[1]);
   const [selectedAge, setSelectedAge] = useState(dataAge[0]);
@@ -47,7 +51,8 @@ const BookAPakage = () => {
         text2: 'Bạn chưa chọn gói khám',
       });
     }
-    goBack ? navigation.goBack() : navigation.navigate('selectSchedule');
+    dispatch(setBookingData({ idGoi: checkedItem.id }));
+    navigation.navigate('selectSchedule');
   };
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 import MyHeader from '../../components/Header/MyHeader';
 import { parseSizeHeight, parseSizeWidth } from '../../theme';
-import { allFacilities } from '../../constants/data';
 import FacilityCard from '../../components/FacilityCard/FacilityCard';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { getFacility } from '../../api/facility';
 
 const SelectFacility = () => {

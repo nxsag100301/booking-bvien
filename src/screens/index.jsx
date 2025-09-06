@@ -21,6 +21,7 @@ import ListProfile from './ListProfile';
 import AddProfile from './AddProfile';
 import DetailProfile from './DetailProfile';
 import OTP from './OTP';
+import Developing from './Developing';
 
 export {
   Home,
@@ -46,4 +47,5 @@ export {
   AddProfile,
   DetailProfile,
   OTP,
+  Developing,
 };

@@ -1,23 +1,35 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
-import MyHeader from '../../components/Header/MyHeader';
-import CalendarCustom from './components/CalendarCustom';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import dayjs from 'dayjs';
+
 import {
   Colors,
   parseSize,
   parseSizeHeight,
   parseSizeWidth,
 } from '../../theme';
+import MyHeader from '../../components/Header/MyHeader';
+import CalendarCustom from './components/CalendarCustom';
 import MyButton from '../../components/Button/MyButton';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { setBookingData } from '../../redux/slice/bookingSlice';
 
 const SelectSchedule = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const route = useRoute();
-  const { goBack = false } = route.params || {};
+  // const route = useRoute();
+  // const { goBack = false } = route.params || {};
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
   const [selected, setSelected] = useState(todayStr);
+
+  const handleContinue = () => {
+    dispatch(
+      setBookingData({ NgayMuonDatHen: dayjs(selected).format('DD-MM-YYYY') }),
+    );
+    navigation.navigate('confirmBookingInfo');
+  };
 
   return (
     <>
@@ -58,11 +70,7 @@ const SelectSchedule = () => {
           </View>
         </View>
         <MyButton
-          onPress={() =>
-            goBack
-              ? navigation.goBack()
-              : navigation.navigate('confirmBookingInfo')
-          }
+          onPress={handleContinue}
           label={'Tiếp tục'}
           style={styles.buttonContinue}
         />

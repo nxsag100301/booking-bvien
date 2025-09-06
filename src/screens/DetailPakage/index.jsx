@@ -11,11 +11,18 @@ import {
 import MyButton from '../../components/Button/MyButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import icons from '../../constants/icons';
+import { useDispatch } from 'react-redux';
+import { setBookingData } from '../../redux/slice/bookingSlice';
 
 const DetailPakage = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute();
   const { pakageInfo } = route?.params;
+  const handleSelectPakage = () => {
+    dispatch(setBookingData({ idGoi: pakageInfo.id }));
+    navigation.navigate('selectSchedule');
+  };
   return (
     <View style={styles.container}>
       <MyHeader headerTitle="Thông tin gói khám" />
@@ -58,7 +65,7 @@ const DetailPakage = () => {
           startIcon={icons.phone}
         />
         <MyButton
-          onPress={() => navigation.navigate('selectSchedule')}
+          onPress={handleSelectPakage}
           label="Chọn gói"
           style={styles.buttonStyle}
         />

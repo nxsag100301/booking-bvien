@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 import MyHeader from '../../components/Header/MyHeader';
 import {
   Colors,
@@ -16,14 +18,8 @@ import {
   Sizes,
 } from '../../theme';
 import icons from '../../constants/icons';
-import { useNavigation } from '@react-navigation/native';
 import SearchInput from '../../components/Input/SearchInput';
-
-const data = [
-  { id: '1', name: 'Trần Lê Tiến Hoà' },
-  { id: '2', name: 'Trần Lê Tiến Hoà 2' },
-  { id: '3', name: 'Trần Lê Tiến Hoà 3' },
-];
+import { getListProfile } from '../../api/auth';
 
 const ProfileCard = ({ profile, onPress }) => {
   return (
@@ -40,6 +36,17 @@ const ProfileCard = ({ profile, onPress }) => {
 const ListProfile = () => {
   const navigation = useNavigation();
   const [searchValue, setSearchValue] = useState('');
+  const [listProfile, setListProfile] = useState(null);
+
+  useEffect(() => {
+    const fetchListProfile = async () => {
+      const res = await getListProfile();
+      if (res?.statusCode === 200) {
+        setListProfile(res?.data);
+      }
+    };
+    fetchListProfile();
+  }, []);
 
   return (
     <>
@@ -56,14 +63,20 @@ const ListProfile = () => {
 
         <FlatList
           keyExtractor={item => item.id}
-          data={data}
+          data={listProfile}
           renderItem={({ item }) => (
             <ProfileCard
               profile={item}
               onPress={() => navigation.navigate('detailProfile')}
             />
           )}
+          ListEmptyComponent={
+            <View style={styles.emptyContainer}>
+              <Text>Chưa có hồ sơ</Text>
+            </View>
+          }
           style={styles.flatListStyle}
+          contentContainerStyle={styles.flex1}
         />
       </View>
     </>
@@ -75,6 +88,14 @@ export default ListProfile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  flex1: {
+    flex: 1,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   searchContainer: {
     paddingHorizontal: parseSizeWidth(16),

@@ -38,7 +38,7 @@ const registerSchema = z
 
 const Register = () => {
   const navigation = useNavigation();
-  const [socialType, setSocialType] = useState(radioData[0]);
+  const [socialType, setSocialType] = useState(radioData[0].value);
 
   const {
     control,
@@ -56,7 +56,7 @@ const Register = () => {
 
   const onSubmit = data => {
     console.log('Register data: ', data);
-    console.log('socialType: ', socialType.value);
+    console.log('socialType: ', socialType);
   };
 
   return (

@@ -23,21 +23,29 @@ const MyTextInput = ({
   placeholder,
   error,
   style,
+  inputStyle,
   password,
+  multiline = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         value={value}
         onChangeText={onChange}
-        style={[style, styles.input, isFocused && styles.inputFocused]}
+        style={[
+          styles.input,
+          isFocused && styles.inputFocused,
+          inputStyle,
+          error && styles.errorStyle,
+        ]}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         placeholder={placeholder}
         secureTextEntry={password && showPassword}
+        multiline={multiline}
       />
       {error && <Text style={styles.error}>{error}</Text>}
       {password && (
@@ -91,5 +99,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     tintColor: Colors.gray_neutral_600,
+  },
+  errorStyle: {
+    borderColor: Colors.error_600,
   },
 });

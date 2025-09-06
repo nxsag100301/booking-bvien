@@ -1,33 +1,48 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Colors, parseSizeHeight, parseSizeWidth } from '../theme';
 
 // const data = [
 //   { label: string, value: string },
 // ];
 
-// checkedItem = { label: string, value: string },
+// checkedItem = string
 
-const RadioGroup = ({ data, checkedItem, onPress }) => {
+const RadioGroup = ({
+  data,
+  checkedItem,
+  onPress,
+  flexRow,
+  gap = 12,
+  style,
+}) => {
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, flexRow && styles.flexRow, { gap: gap }, style]}
+    >
       {data &&
         data.length > 0 &&
         data.map(item => (
           <View key={item.value} style={styles.radioButton}>
             <TouchableOpacity
-              onPress={() => onPress(item)}
+              onPress={() => onPress(item.value)}
               style={[
                 styles.circle,
-                checkedItem?.value === item?.value && {
+                checkedItem === item?.value && {
                   borderColor: Colors.primary_600,
                 },
               ]}
             >
-              {checkedItem?.value === item?.value && (
-                <View style={styles.dot} />
-              )}
+              {checkedItem === item?.value && <View style={styles.dot} />}
             </TouchableOpacity>
-            <Text>{item.label}</Text>
+            <Pressable onPress={() => onPress(item.value)}>
+              <Text>{item.label}</Text>
+            </Pressable>
           </View>
         ))}
     </View>
@@ -37,13 +52,16 @@ const RadioGroup = ({ data, checkedItem, onPress }) => {
 export default RadioGroup;
 
 const styles = StyleSheet.create({
-  container: {
-    gap: parseSizeHeight(12),
-  },
+  container: {},
   radioButton: {
     flexDirection: 'row',
     gap: parseSizeWidth(8),
     alignItems: 'center',
+  },
+  flexRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: parseSizeWidth(32),
   },
   circle: {
     borderWidth: 1,
@@ -57,7 +75,7 @@ const styles = StyleSheet.create({
   dot: {
     backgroundColor: Colors.primary_600,
     borderRadius: 9999,
-    height: parseSizeHeight(12),
-    width: parseSizeWidth(12),
+    height: parseSizeHeight(10),
+    width: parseSizeWidth(10),
   },
 });

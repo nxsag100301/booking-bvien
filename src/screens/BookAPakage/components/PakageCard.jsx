@@ -24,6 +24,7 @@ const PakageCard = ({ pakage, checked, onPress }) => {
           onPress={() =>
             navigation.navigate('detailPakage', {
               pakageInfo: {
+                id: pakage?.id,
                 name: pakage?.tenGoi,
                 price: formatVND(pakage?.tongTien),
                 detail: pakage?.chiTiet,

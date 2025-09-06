@@ -1,7 +1,7 @@
-import BottomTab from './BottomTab';
 import { createRef } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BottomTab from './BottomTab';
 import {
   AddProfile,
   AppointmentSuccessful,
@@ -11,6 +11,7 @@ import {
   ConfirmBookingInfo,
   DetailPakage,
   DetailProfile,
+  Developing,
   Login,
   OTP,
   PaymentInformation,
@@ -22,7 +23,6 @@ import {
   SelectTime,
   TestPdf,
 } from '../screens';
-import { useSelector } from 'react-redux';
 
 export const navigationRef = createRef();
 
@@ -37,7 +37,6 @@ const MyTheme = {
 };
 
 const Navigation = () => {
-  const user = useSelector(state => state.user.currentUser);
   return (
     <NavigationContainer ref={navigationRef} theme={MyTheme}>
       <Stack.Navigator
@@ -95,6 +94,9 @@ const Navigation = () => {
         <Stack.Screen name="addProfile" component={AddProfile} />
         <Stack.Screen name="detailProfile" component={DetailProfile} />
         <Stack.Screen name="otp" component={OTP} />
+
+        {/* Developing */}
+        <Stack.Screen name="developing" component={Developing} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -20,7 +20,13 @@ import RNQRGenerator from 'rn-qr-generator';
 import { launchImageLibrary } from 'react-native-image-picker';
 import Toast from 'react-native-toast-message';
 
-import { Width, Height, parseSizeWidth, parseSizeHeight } from '../theme';
+import {
+  Width,
+  Height,
+  parseSizeWidth,
+  parseSizeHeight,
+  Colors,
+} from '../theme';
 import icons from '../constants/icons';
 
 const overlayColor = 'rgba(0,0,0,0.65)';
@@ -40,8 +46,11 @@ const ScanQR = ({ isActive, isVisible, onClose, onScan }) => {
       const value = codes[0]?.value ?? '';
       if (onScan) {
         onScan(value);
-        scannedRef.current = false;
+        scannedRef.current = true;
       }
+      setTimeout(() => {
+        scannedRef.current = false;
+      }, 2000);
     },
   });
 
@@ -159,7 +168,11 @@ const ScanQR = ({ isActive, isVisible, onClose, onScan }) => {
         <TouchableOpacity onPress={onClose} style={styles.closeButton}>
           <Image
             source={icons.x}
-            style={{ width: parseSizeWidth(24), height: parseSizeHeight(24) }}
+            style={{
+              width: parseSizeWidth(24),
+              height: parseSizeHeight(24),
+            }}
+            tintColor={Colors.white}
           />
         </TouchableOpacity>
 
@@ -170,6 +183,7 @@ const ScanQR = ({ isActive, isVisible, onClose, onScan }) => {
           <Image
             source={icons.gallery}
             style={{ width: parseSizeWidth(24), height: parseSizeHeight(24) }}
+            tintColor={Colors.white}
           />
         </TouchableOpacity>
 

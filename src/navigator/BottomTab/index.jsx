@@ -6,6 +6,7 @@ import { Account, Home, ListProfile, ScanQR, Search } from '../../screens';
 import icons from '../../constants/icons';
 import { Colors, parseSizeHeight, parseSizeWidth } from '../../theme';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
@@ -96,6 +97,9 @@ const TabIcon = ({ icon, focused, isMiddle, label }) => {
 };
 
 const BottomTab = () => {
+  const userLogin = useSelector(state => state.user.currentUser);
+  const navigation = useNavigation();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -118,6 +122,24 @@ const BottomTab = () => {
                 label={tab.label}
               />
             ),
+            tabBarButton: props => {
+              // Nếu tab là scanQR thì cho vào luôn
+              if (tab.isMiddle) {
+                return <TouchableOpacity {...props} />;
+              }
+              // Các tab yêu cầu login
+              const needLogin = ['search', 'notifications', 'account'];
+              if (needLogin.includes(tab.name) && !userLogin) {
+                return (
+                  <TouchableOpacity
+                    {...props}
+                    onPress={() => navigation.navigate('login')}
+                  />
+                );
+              }
+              // Tab còn lại hoạt động bình thường
+              return <TouchableOpacity {...props} />;
+            },
           }}
         />
       ))}
