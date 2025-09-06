@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 const Home = () => {
   const navigation = useNavigation();
   const user = useSelector(state => state.user.currentUser);
+  const profile = useSelector(state => state.profile.listProfile);
   const handleBooking = () => {
     if (!user) {
       return navigation.navigate('login');
