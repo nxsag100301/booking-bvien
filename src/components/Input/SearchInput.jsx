@@ -21,6 +21,7 @@ const SearchInput = ({ value, onChange }) => {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         placeholder="Tìm kiếm..."
+        placeholderTextColor={Colors.gray_neutral_300}
       />
     </View>
   );
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   containerFocused: {},
   input: {
     borderWidth: 0.5,
-    height: parseSizeHeight(40),
+    height: parseSizeHeight(48),
     paddingHorizontal: parseSizeWidth(32),
     borderRadius: parseSize(8),
     borderColor: Colors.gray_neutral_400,
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: parseSizeWidth(24),
     height: parseSizeHeight(24),
-    top: parseSizeHeight(8),
+    top: parseSizeHeight(12),
     left: parseSizeWidth(6),
   },
 });

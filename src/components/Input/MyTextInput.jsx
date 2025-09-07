@@ -27,6 +27,7 @@ const MyTextInput = ({
   password,
   multiline = false,
   keyboardType,
+  disable = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
@@ -41,6 +42,7 @@ const MyTextInput = ({
           isFocused && styles.inputFocused,
           inputStyle,
           error && styles.errorStyle,
+          disable && styles.inputDisabled,
         ]}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
@@ -48,7 +50,8 @@ const MyTextInput = ({
         secureTextEntry={password && showPassword}
         multiline={multiline}
         keyboardType={keyboardType}
-        placeholderTextColor={Colors.gray_neutral_400}
+        placeholderTextColor={Colors.gray_neutral_300}
+        editable={!disable}
       />
       {error && <Text style={styles.error}>{error}</Text>}
       {password && (
@@ -62,7 +65,7 @@ const MyTextInput = ({
           />
         </TouchableOpacity>
       )}
-      {!password && value && (
+      {!password && value && !disable && (
         <TouchableOpacity
           onPress={() => onChange('')}
           style={styles.clearIconContainer}
@@ -130,5 +133,9 @@ const styles = StyleSheet.create({
     width: parseSizeWidth(13),
     height: parseSizeHeight(13),
     tintColor: Colors.gray_neutral_600,
+  },
+  inputDisabled: {
+    backgroundColor: Colors.gray_neutral_100,
+    color: Colors.gray_neutral_600,
   },
 });

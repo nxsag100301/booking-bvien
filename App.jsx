@@ -1,13 +1,14 @@
+import { useEffect } from 'react';
+import { StyleSheet } from 'react-native';
+import Toast from 'react-native-toast-message';
+import SplashScreen from 'react-native-splash-screen';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import Index from './src';
 import { Provider } from 'react-redux';
 import { store } from './src/redux/store';
 import { injectStore } from './src/utils/authorizeAxios';
-import SplashScreen from 'react-native-splash-screen';
-import { useEffect } from 'react';
-import Toast from 'react-native-toast-message';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { StyleSheet } from 'react-native';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 const App = () => {
   injectStore(store);
@@ -15,14 +16,14 @@ const App = () => {
     SplashScreen.hide();
   }, []);
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <BottomSheetModalProvider>
-        <Provider store={store}>
+    <Provider store={store}>
+      <GestureHandlerRootView style={styles.container}>
+        <BottomSheetModalProvider>
           <Index />
           <Toast visibilityTime={1500} autoHide />
-        </Provider>
-      </BottomSheetModalProvider>
-    </GestureHandlerRootView>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </Provider>
   );
 };
 

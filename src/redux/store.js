@@ -3,6 +3,7 @@ import userReducer from './slice/userSlice';
 import loadingReducer from './slice/loadingSlice';
 import bookingReducer from './slice/bookingSlice';
 import profileReducer from './slice/profileSlice';
+import commonReducer from './slice/commonSlice';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   loading: loadingReducer,
   booking: bookingReducer,
   profile: profileReducer,
+  common: commonReducer,
 });
 
 const persistConfig = {

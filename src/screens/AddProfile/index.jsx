@@ -45,7 +45,6 @@ const profileSchema = z.object({
   cccd: z.string().min(9, 'CCCD phải ít nhất 9 số'),
   phone: z.string().regex(/^(0[0-9]{9})$/, 'Số điện thoại không hợp lệ'),
   email: z.string().email('Email không hợp lệ'),
-  address: z.string().min(1, 'Vui lòng nhập địa chỉ'),
   addressType: z.enum(['before', 'after']),
   street: z.string().min(1, 'Vui lòng nhập số nhà, tên đường'),
   nationality: z.string().min(1, 'Vui lòng nhập quốc tịch'),
@@ -56,13 +55,15 @@ const profileSchema = z.object({
 
 const AddProfile = () => {
   const [scanQr, setScanQr] = useState(false);
-  const [addressValue, setAddressValue] = useState('123');
+  const [isScanned, setIsScanned] = useState(false);
+  const [addressValue, setAddressValue] = useState('');
   const [isOpenAddressModal, setIsOpenAddressModal] = useState(false);
 
   const {
     control,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(profileSchema),
@@ -72,7 +73,6 @@ const AddProfile = () => {
       cccd: '',
       phone: '',
       email: '',
-      address: '',
       addressType: 'before',
       street: '',
       nationality: 'Việt Nam',
@@ -81,6 +81,8 @@ const AddProfile = () => {
       gender: 0,
     },
   });
+
+  const addressType = watch('addressType');
 
   const parseBirthDate = raw => {
     if (!/^\d{8}$/.test(raw)) return raw; // không đúng 8 số thì trả về nguyên
@@ -133,14 +135,25 @@ const AddProfile = () => {
       setValue('fullName', fullName);
       setValue('birthDate', birthDate);
       setValue('gender', gender);
-      setValue('address', address);
+      setAddressValue(address);
       setValue('street', street);
+      setValue(
+        'addressType',
+        addressRaw.split(',')?.length === 4 ? 'before' : 'after',
+      );
 
+      setIsScanned(true);
       setScanQr(false);
     } catch (error) {
       Alert.alert('Lỗi', 'Không thể đọc mã CCCD');
     }
   };
+
+  const handleSelectDone = value => {
+    setIsOpenAddressModal(false);
+    setAddressValue(value);
+  };
+  console.log('addressValue: ', addressValue);
 
   return (
     <>
@@ -158,9 +171,12 @@ const AddProfile = () => {
       <MyBottomSheetModal
         isVisible={isOpenAddressModal}
         onClose={() => setIsOpenAddressModal(false)}
-        heightPercent="80%"
+        heightPercent="85%"
       >
-        <SelectAddress />
+        <SelectAddress
+          typeAddress={addressType}
+          onFinished={handleSelectDone}
+        />
       </MyBottomSheetModal>
 
       <View style={styles.container}>
@@ -231,6 +247,7 @@ const AddProfile = () => {
                     value={value}
                     onChange={onChange}
                     error={errors.cccd?.message}
+                    disable={isScanned}
                   />
                 )}
               />
@@ -262,29 +279,20 @@ const AddProfile = () => {
                   />
                 )}
               />
-
-              {/* Địa chỉ */}
-              {/* <Controller
-                control={control}
-                name="address"
-                render={({ field: { value, onChange } }) => (
-                  <MyTextInput
-                    label="Địa chỉ"
-                    value={value}
-                    onChange={onChange}
-                    error={errors.address?.message}
-                    multiline
-                    inputStyle={styles.addressInputStyle}
-                  />
-                )}
-              /> */}
               <View>
                 <Text style={styles.inputLabel}>Địa chỉ</Text>
                 <TouchableOpacity
-                  onPress={() => setIsOpenAddressModal(true)}
-                  style={styles.addressInput}
+                  onPress={() => !isScanned && setIsOpenAddressModal(true)}
+                  style={[styles.addressInput, isScanned && styles.disable]}
                 >
-                  <Text style={styles.inputValue}>{addressValue}</Text>
+                  <Text
+                    style={[
+                      styles.inputValue,
+                      isScanned && styles.inputValueDisable,
+                    ]}
+                  >
+                    {addressValue}
+                  </Text>
                 </TouchableOpacity>
               </View>
 
@@ -313,6 +321,7 @@ const AddProfile = () => {
                     value={value}
                     onChange={onChange}
                     error={errors.street?.message}
+                    disable={isScanned}
                   />
                 )}
               />
@@ -432,5 +441,12 @@ const styles = StyleSheet.create({
   },
   inputValue: {
     fontSize: Sizes.text_subtitle1,
+  },
+  disable: {
+    backgroundColor: Colors.gray_neutral_100,
+    borderColor: Colors.gray_neutral_400,
+  },
+  inputValueDisable: {
+    color: Colors.gray_neutral_600,
   },
 });

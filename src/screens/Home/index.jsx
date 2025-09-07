@@ -1,4 +1,8 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+
 import HomeHeader from './conponents/HomeHeader';
 import { Colors, parseSizeHeight, parseSizeWidth, Sizes } from '../../theme';
 import HomeCarousel from './conponents/HomeCarousel';
@@ -6,10 +10,20 @@ import MenuButton from './conponents/MenuButton';
 import { homeMenu } from '../../constants/data';
 import MyButton from '../../components/Button/MyButton';
 import BannerCarousel from './conponents/BannerCarousel';
-import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import {
+  getCommuneNew,
+  getCommuneOld,
+  getDistrictOld,
+  getGender,
+  getJob,
+  getNation,
+  getProvinceNew,
+  getProvinceOld,
+} from '../../api/common';
+import { setCommonData } from '../../redux/slice/commonSlice';
 
 const Home = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const user = useSelector(state => state.user.currentUser);
   const profile = useSelector(state => state.profile.listProfile);
@@ -19,6 +33,48 @@ const Home = () => {
     }
     navigation.navigate('selectFacility');
   };
+
+  useEffect(() => {
+    const fetchAll = async () => {
+      try {
+        const [
+          provinceNew,
+          communeNew,
+          provinceOld,
+          districtOld,
+          communeOld,
+          gender,
+          nation,
+          job,
+        ] = await Promise.all([
+          getProvinceNew(),
+          getCommuneNew(),
+          getProvinceOld(),
+          getDistrictOld(),
+          getCommuneOld(),
+          getGender(),
+          getNation(),
+          getJob(),
+        ]);
+        dispatch(
+          setCommonData({
+            provinceNew,
+            communeNew,
+            provinceOld,
+            districtOld,
+            communeOld,
+            gender,
+            nation,
+            job,
+          }),
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchAll();
+  }, [dispatch]);
 
   return (
     <ScrollView
