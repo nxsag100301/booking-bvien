@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import MyTextInput from '../../components/Input/MyTextInput';
 import { parseSizeWidth, parseSizeHeight, Colors, Sizes } from '../../theme';
@@ -15,10 +16,12 @@ import { z } from 'zod';
 import MyButton from '../../components/Button/MyButton';
 import RadioGroup from '../../components/RadioGroup';
 import { useNavigation } from '@react-navigation/native';
+import { registerApi } from '../../api/auth';
+import Toast from 'react-native-toast-message';
 
 const radioData = [
-  { label: 'Zalo', value: 'zalo' },
-  { label: 'Email', value: 'email' },
+  { label: 'Zalo', value: 1 },
+  { label: 'Email', value: 2 },
 ];
 
 // Schema validation
@@ -28,6 +31,9 @@ const registerSchema = z
       message: 'Số điện thoại không hợp lệ',
     }),
     email: z.string().email('Email không hợp lệ'),
+    cccd: z.string().refine(val => /^\d{12}$/.test(val), {
+      message: 'Số CCCD không hợp lệ',
+    }),
     password: z.string().min(6, 'Mật khẩu phải ít nhất 6 ký tự'),
     confirmPassword: z.string().min(1, 'Mật khẩu nhập lại không được để trống'),
   })
@@ -38,7 +44,7 @@ const registerSchema = z
 
 const Register = () => {
   const navigation = useNavigation();
-  const [socialType, setSocialType] = useState(radioData[0].value);
+  const [socialType, setSocialType] = useState(1);
 
   const {
     control,
@@ -49,18 +55,41 @@ const Register = () => {
     defaultValues: {
       phone: '',
       email: '',
+      cccd: '',
       password: '',
       confirmPassword: '',
     },
   });
 
-  const onSubmit = data => {
-    console.log('Register data: ', data);
-    console.log('socialType: ', socialType);
+  const onSubmit = async data => {
+    const variables = {
+      DienThoai: data.phone,
+      Email: data.email,
+      MatKhau: data.password,
+      SoCccd: data.cccd,
+      xacthuc: socialType,
+    };
+    const res = await registerApi(variables);
+    if (res?.statusCode === 200) {
+      navigation.navigate('otp', {
+        cccd: data.cccd,
+        email: data.email,
+        phoneNumber: data.phone,
+      });
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'Lỗi',
+        text2: res?.message,
+      });
+    }
   };
 
   return (
-    <KeyboardAvoidingView style={styles.avoid}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={styles.avoid}
+    >
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
@@ -97,6 +126,20 @@ const Register = () => {
                 placeholder="Nhập email"
                 keyboardType="email-address"
                 error={errors.email?.message}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="cccd"
+            render={({ field: { onChange, value } }) => (
+              <MyTextInput
+                label="CCCD"
+                value={value}
+                onChange={onChange}
+                placeholder="Nhập số CCCD"
+                error={errors.cccd?.message}
               />
             )}
           />

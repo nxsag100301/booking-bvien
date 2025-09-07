@@ -26,6 +26,7 @@ const MyTextInput = ({
   inputStyle,
   password,
   multiline = false,
+  keyboardType,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
@@ -46,6 +47,8 @@ const MyTextInput = ({
         placeholder={placeholder}
         secureTextEntry={password && showPassword}
         multiline={multiline}
+        keyboardType={keyboardType}
+        placeholderTextColor={Colors.gray_neutral_400}
       />
       {error && <Text style={styles.error}>{error}</Text>}
       {password && (
@@ -57,6 +60,14 @@ const MyTextInput = ({
             source={showPassword ? icons.eyeOff : icons.eyeOpen}
             style={styles.eye}
           />
+        </TouchableOpacity>
+      )}
+      {!password && value && (
+        <TouchableOpacity
+          onPress={() => onChange('')}
+          style={styles.clearIconContainer}
+        >
+          <Image source={icons.x} style={styles.clearIcon} />
         </TouchableOpacity>
       )}
     </View>
@@ -102,5 +113,22 @@ const styles = StyleSheet.create({
   },
   errorStyle: {
     borderColor: Colors.error_600,
+  },
+  clearIconContainer: {
+    width: parseSizeWidth(17),
+    height: parseSizeHeight(17),
+    borderWidth: 1,
+    borderRadius: 9999,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: Colors.gray_neutral_600,
+    position: 'absolute',
+    right: parseSizeWidth(16),
+    top: parseSizeHeight(34),
+  },
+  clearIcon: {
+    width: parseSizeWidth(13),
+    height: parseSizeHeight(13),
+    tintColor: Colors.gray_neutral_600,
   },
 });

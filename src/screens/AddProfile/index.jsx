@@ -5,20 +5,29 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import MyHeader from '../../components/Header/MyHeader';
-import MyTextInput from '../../components/Input/MyTextInput';
-import { parseSizeHeight, parseSizeWidth, Sizes } from '../../theme';
-import RadioGroup from '../../components/RadioGroup';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import MyHeader from '../../components/Header/MyHeader';
+import MyTextInput from '../../components/Input/MyTextInput';
+import {
+  Colors,
+  parseSize,
+  parseSizeHeight,
+  parseSizeWidth,
+  Sizes,
+} from '../../theme';
+import RadioGroup from '../../components/RadioGroup';
 import MyButton from '../../components/Button/MyButton';
 import icons from '../../constants/icons';
 import ScanQR from '../../components/ScanQR';
-import dayjs from 'dayjs';
+import MyBottomSheetModal from '../../components/MyBottomSheetModal';
+import SelectAddress from './components/SelectAddress';
 
 const genderRadioData = [
   { label: 'Nam', value: 0 },
@@ -47,6 +56,8 @@ const profileSchema = z.object({
 
 const AddProfile = () => {
   const [scanQr, setScanQr] = useState(false);
+  const [addressValue, setAddressValue] = useState('123');
+  const [isOpenAddressModal, setIsOpenAddressModal] = useState(false);
 
   const {
     control,
@@ -144,6 +155,14 @@ const AddProfile = () => {
         onClose={() => setScanQr(false)}
         onScan={handleScan}
       />
+      <MyBottomSheetModal
+        isVisible={isOpenAddressModal}
+        onClose={() => setIsOpenAddressModal(false)}
+        heightPercent="80%"
+      >
+        <SelectAddress />
+      </MyBottomSheetModal>
+
       <View style={styles.container}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -245,7 +264,7 @@ const AddProfile = () => {
               />
 
               {/* Địa chỉ */}
-              <Controller
+              {/* <Controller
                 control={control}
                 name="address"
                 render={({ field: { value, onChange } }) => (
@@ -258,7 +277,16 @@ const AddProfile = () => {
                     inputStyle={styles.addressInputStyle}
                   />
                 )}
-              />
+              /> */}
+              <View>
+                <Text style={styles.inputLabel}>Địa chỉ</Text>
+                <TouchableOpacity
+                  onPress={() => setIsOpenAddressModal(true)}
+                  style={styles.addressInput}
+                >
+                  <Text style={styles.inputValue}>{addressValue}</Text>
+                </TouchableOpacity>
+              </View>
 
               {/* Trước/sau sáp nhập */}
               <Controller
@@ -355,6 +383,7 @@ const styles = StyleSheet.create({
     paddingBottom: parseSizeHeight(88),
   },
   contentContainer: {
+    flex: 1,
     paddingHorizontal: parseSizeWidth(16),
     gap: parseSizeHeight(16),
   },
@@ -387,5 +416,21 @@ const styles = StyleSheet.create({
   inputGenderLabel: {
     fontSize: Sizes.text_tagline1,
     marginTop: parseSizeHeight(-32),
+  },
+  inputLabel: {
+    fontSize: Sizes.text_tagline1,
+  },
+  addressInput: {
+    borderWidth: 0.5,
+    height: parseSizeHeight(100),
+    paddingHorizontal: parseSizeWidth(16),
+    borderRadius: parseSize(8),
+    borderColor: Colors.gray_neutral_600,
+    marginVertical: parseSizeHeight(4),
+    fontSize: Sizes.text_subtitle1,
+    padding: parseSize(12),
+  },
+  inputValue: {
+    fontSize: Sizes.text_subtitle1,
   },
 });

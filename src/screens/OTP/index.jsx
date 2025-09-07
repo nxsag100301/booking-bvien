@@ -6,23 +6,36 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 import { Colors, parseSizeHeight, parseSizeWidth, Sizes } from '../../theme';
 import MyButton from '../../components/Button/MyButton';
 import icons from '../../constants/icons';
+import { authorizeOtpApi } from '../../api/auth';
+import { userVerifyOtpAPI } from '../../redux/slice/userSlice';
+import { useDispatch } from 'react-redux';
 
 export default function OTP() {
-  const length = 4;
-  const [otp, setOtp] = useState(new Array(length).fill(''));
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { cccd, email, phoneNumber } = route?.params;
+  const otpLength = 4;
+  const [otp, setOtp] = useState(new Array(otpLength).fill(''));
   const inputsRef = useRef([]);
 
   const handleChange = (text, index) => {
+    // chỉ cho nhập số
+    if (!/^\d*$/.test(text)) return;
+
     let newOtp = [...otp];
     newOtp[index] = text;
     setOtp(newOtp);
 
     // focus tiếp theo nếu có nhập
-    if (text && index < length - 1) {
+    if (text && index < otpLength - 1) {
       inputsRef.current[index + 1].focus();
     }
   };
@@ -33,8 +46,17 @@ export default function OTP() {
     }
   };
 
-  const handleVerify = () => {
-    alert('OTP nhập: ' + otp.join(''));
+  const handleVerify = async () => {
+    const otpValue = otp.join('');
+    const res = await dispatch(
+      userVerifyOtpAPI({
+        cccd: cccd,
+        code: otpValue,
+        sdt: phoneNumber,
+        Email: email,
+      }),
+    ).unwrap();
+    console.log('res from view: ', res);
   };
 
   return (
@@ -69,9 +91,11 @@ export default function OTP() {
         label={'Xác nhận'}
         style={styles.button}
         labelStyle={styles.buttonText}
+        disabled={otp.join('').length < otpLength} // disable nếu chưa đủ số
       />
-      <TouchableOpacity>
-        <Text style={styles.backHomeTxt}>Quay lại đăng nhập</Text>
+
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Text style={styles.backHomeTxt}>Quay lại</Text>
       </TouchableOpacity>
     </View>
   );
@@ -127,7 +151,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: Sizes.text_subtitle1,
-    fontWeight: 600,
+    fontWeight: '600',
   },
   refreshContainer: {
     flexDirection: 'row',
@@ -148,5 +172,10 @@ const styles = StyleSheet.create({
   backHomeTxt: {
     color: Colors.blue_500,
     fontStyle: 'italic',
+  },
+  error: {
+    color: Colors.error_600,
+    marginTop: parseSizeHeight(8),
+    fontSize: Sizes.text_tagline1,
   },
 });
