@@ -24,27 +24,26 @@ export const userLoginAPI = createAsyncThunk(
 export const userVerifyOtpAPI = createAsyncThunk(
   'user/userVerifyOtpAPI',
   async data => {
-    const res = await axios.post('HeThong/HT_DangNhap/XacThucMaXacNhan', null, {
+    const res = await axios.post('api/HT_DangNhap/XacThucMaXacNhan', null, {
       params: data,
     });
-    // const { accessToken, refreshToken } = res?.data?.tokenInfor;
-    // await AsyncStorage.setItem('accessToken', accessToken);
-    // await AsyncStorage.setItem('refreshToken', refreshToken);
-    console.log('res: ', res);
-    if (res?.data?.statusCode === 200) {
+    const { accessToken, refreshToken } = res?.tokenInfor;
+    await AsyncStorage.setItem('accessToken', accessToken);
+    await AsyncStorage.setItem('refreshToken', refreshToken);
+    if (res?.result?.statusCode === 200) {
       Toast.show({
         type: 'success',
         text1: 'Thành công',
-        text2: res?.data?.message,
+        text2: res?.result?.message,
       });
     } else {
       Toast.show({
         type: 'error',
         text1: 'Lỗi',
-        text2: res?.data?.message,
+        text2: res?.result?.message,
       });
     }
-    return res.data;
+    return res;
   },
 );
 

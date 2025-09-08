@@ -6,14 +6,12 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Alert,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Colors, parseSizeHeight, parseSizeWidth, Sizes } from '../../theme';
 import MyButton from '../../components/Button/MyButton';
 import icons from '../../constants/icons';
-import { authorizeOtpApi } from '../../api/auth';
 import { userVerifyOtpAPI } from '../../redux/slice/userSlice';
 import { useDispatch } from 'react-redux';
 
@@ -48,15 +46,14 @@ export default function OTP() {
 
   const handleVerify = async () => {
     const otpValue = otp.join('');
-    const res = await dispatch(
+    await dispatch(
       userVerifyOtpAPI({
         cccd: cccd,
         code: otpValue,
         sdt: phoneNumber,
         Email: email,
       }),
-    ).unwrap();
-    console.log('res from view: ', res);
+    ).then(navigation.navigate('bottomTab'));
   };
 
   return (
