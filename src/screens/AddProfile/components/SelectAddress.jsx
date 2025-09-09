@@ -16,6 +16,7 @@ import {
   Sizes,
 } from '../../../theme';
 import SearchInput from '../../../components/Input/SearchInput';
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 
 const SelectAddress = ({ typeAddress, onFinished }) => {
   const [searchValue, setSearchValue] = useState('');
@@ -143,7 +144,7 @@ const SelectAddress = ({ typeAddress, onFinished }) => {
       {/* List */}
       <View style={styles.contentContainer}>
         <SearchInput value={searchValue} onChange={setSearchValue} />
-        <FlatList
+        <BottomSheetFlatList
           data={data}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}

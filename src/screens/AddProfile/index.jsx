@@ -28,10 +28,13 @@ import icons from '../../constants/icons';
 import ScanQR from '../../components/ScanQR';
 import MyBottomSheetModal from '../../components/MyBottomSheetModal';
 import SelectAddress from './components/SelectAddress';
+import MyDatePicker from '../../components/DatePicker';
+import { getCodeJson, getIdJson } from '../../utils/common';
+import { useSelector } from 'react-redux';
 
 const genderRadioData = [
-  { label: 'Nam', value: 0 },
-  { label: 'Nữ', value: 1 },
+  { label: 'Nam', value: 1 },
+  { label: 'Nữ', value: 2 },
 ];
 
 const addressRadioData = [
@@ -58,6 +61,18 @@ const AddProfile = () => {
   const [isScanned, setIsScanned] = useState(false);
   const [addressValue, setAddressValue] = useState('');
   const [isOpenAddressModal, setIsOpenAddressModal] = useState(false);
+
+  const {
+    provinceNew,
+    communeNew,
+    provinceOld,
+    districtOld,
+    communeOld,
+    gender,
+    nation,
+    job,
+    country,
+  } = useSelector(state => state.common);
 
   const {
     control,
@@ -102,12 +117,35 @@ const AddProfile = () => {
   };
 
   const onSubmit = data => {
-    console.log('✅ Dữ liệu form:', data);
+    // console.log('Dữ liệu form:', data);
+    const addressValueArr = addressValue.split('-');
+    const commune = addressValueArr[0];
+    const district = addressValueArr[1];
+    const province = `${
+      addressValueArr[3]
+        ? addressValueArr[2] + '-' + addressValueArr[3]
+        : addressValueArr[2]
+    }`;
+    const variables = {
+      diaChi: data.street,
+      dienThoai: data.phone,
+      email: data.email,
+      id: '17',
+      iddt: getIdJson(nation, 'ten', data.ethnicity),
+      idgt: getIdJson(gender, 'id', data.gender),
+      idnn: getIdJson(job, 'ten', data.occupation),
+      idpx: getIdJson(communeOld, 'ten', commune),
+      // idhuyen: getIdJson(districtOld, 'ten', district),
+      idqg: getIdJson(country, 'ten', data.nationality), // data.nationality
+      idtinh: getIdJson(provinceOld, 'ten', province),
+      ngaySinh: data.birthDate,
+      soCccd: data.cccd,
+      tenBn: data.fullName,
+    };
+    console.log({ variables });
   };
 
   const handleScan = valueScan => {
-    console.log('valueScan: ', valueScan);
-
     const parts = valueScan.split('|');
     if (parts.length < 7) {
       Alert.alert('Lỗi', 'CCCD không hợp lệ');
@@ -153,7 +191,6 @@ const AddProfile = () => {
     setIsOpenAddressModal(false);
     setAddressValue(value);
   };
-  console.log('addressValue: ', addressValue);
 
   return (
     <>
@@ -209,11 +246,10 @@ const AddProfile = () => {
                   control={control}
                   name="birthDate"
                   render={({ field: { value, onChange } }) => (
-                    <MyTextInput
-                      label="Ngày sinh"
+                    <MyDatePicker
+                      labelName={'Ngày sinh'}
                       value={value}
-                      onChange={onChange}
-                      error={errors.birthDate?.message}
+                      getValue={onChange}
                       style={styles.birthdateInput}
                     />
                   )}
@@ -402,14 +438,13 @@ const styles = StyleSheet.create({
   spaceBetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: parseSizeWidth(16),
+    gap: parseSizeWidth(20),
   },
   birthdateInput: {
     flex: 1,
   },
   radioGenderStyle: {
-    flex: 1,
+    width: '48%',
     gap: parseSizeHeight(16),
   },
   addressInputStyle: {
@@ -424,7 +459,6 @@ const styles = StyleSheet.create({
   },
   inputGenderLabel: {
     fontSize: Sizes.text_tagline1,
-    marginTop: parseSizeHeight(-32),
   },
   inputLabel: {
     fontSize: Sizes.text_tagline1,

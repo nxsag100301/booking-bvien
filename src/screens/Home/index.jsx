@@ -13,6 +13,7 @@ import BannerCarousel from './conponents/BannerCarousel';
 import {
   getCommuneNew,
   getCommuneOld,
+  getCountry,
   getDistrictOld,
   getGender,
   getJob,
@@ -46,6 +47,7 @@ const Home = () => {
           gender,
           nation,
           job,
+          country,
         ] = await Promise.all([
           getProvinceNew(),
           getCommuneNew(),
@@ -55,6 +57,7 @@ const Home = () => {
           getGender(),
           getNation(),
           getJob(),
+          getCountry(),
         ]);
         dispatch(
           setCommonData({
@@ -66,6 +69,7 @@ const Home = () => {
             gender,
             nation,
             job,
+            country,
           }),
         );
       } catch (error) {

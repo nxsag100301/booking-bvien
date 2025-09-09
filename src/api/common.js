@@ -26,6 +26,11 @@ export const getCommuneOld = async () => {
   return res.data;
 };
 
+export const getCountry = async () => {
+  const res = await axios.get(`${Config.URL_API_COMMON}/DM_QuocGia.json`);
+  return res.data;
+};
+
 export const getGender = async () => {
   const res = await axios.get(`${Config.URL_API_COMMON}/DM_GioiTinh.json`);
   return res.data;

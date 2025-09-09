@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { useTranslation } from 'react-i18next';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import dayjs from 'dayjs';
 
-import { MyText } from '~components/MyCustom';
 import {
   Sizes,
   Colors,
   FontStyles,
   parseSizeHeight,
   parseSizeWidth,
-} from '~theme';
-import Icon from '~components/icons/IconSVG';
+} from '../theme';
 import DatePicker from 'react-native-date-picker';
 
-const Index = ({
+const MyDatePicker = ({
   labelName,
   value = null,
   required = false,
@@ -28,7 +25,6 @@ const Index = ({
   isSelected,
   contentError,
 }) => {
-  const { t } = useTranslation();
   const [modalCalendar, setModalCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
@@ -52,40 +48,31 @@ const Index = ({
   }, [isSelected]);
 
   return (
-    <TouchableOpacity
+    <View
       onPress={() => setModalCalendar(true)}
       style={[styles.container, style]}
     >
       <View style={styles.wrapLabel}>
-        <MyText style={[styles.textLabel, styleLabel]}>
+        <Text style={[styles.textLabel, styleLabel]}>
           {labelName}
-          {required && <MyText style={styles.required}> *</MyText>}
-        </MyText>
+          {required && <Text style={styles.required}> *</Text>}
+        </Text>
       </View>
-      <View
+      <TouchableOpacity
+        onPress={() => setModalCalendar(true)}
         style={[
           styles.wrapInput,
           contentError ? { borderColor: 'red', borderWidth: 1 } : {},
           styleContainer,
         ]}
       >
-        <MyText style={[styleText, styles.textValue]}>
-          {formatDisplayDate()}
-        </MyText>
-        <View style={styles.Icon}>
-          <Icon
-            name={'calendar'}
-            width={24}
-            height={25}
-            stroke={Colors.text_700}
-          />
-        </View>
-      </View>
+        <Text style={[styleText, styles.textValue]}>{formatDisplayDate()}</Text>
+      </TouchableOpacity>
       {contentError && (
-        <MyText style={styles.txtError}>
+        <Text style={styles.txtError}>
           {'* '}
           {contentError}
-        </MyText>
+        </Text>
       )}
       <DatePicker
         modal
@@ -95,29 +82,28 @@ const Index = ({
         onCancel={() => setModalCalendar(false)}
         locale="vi"
         mode="date"
-        title={t('selectDate')}
-        confirmText={t('confirm')}
-        cancelText={t('cancel')}
+        title={'Chọn ngày'}
+        confirmText={'Xác nhận'}
+        cancelText={'Huỷ'}
         maximumDate={new Date(maxDate)}
         minimumDate={new Date(minDate)}
       />
-    </TouchableOpacity>
+    </View>
   );
 };
 
-export default Index;
+export default MyDatePicker;
 
 const styles = StyleSheet.create({
   container: {
     padding: 0,
+    flex: 1,
   },
   wrapLabel: {
     marginBottom: parseSizeHeight(5),
   },
   textLabel: {
-    fontSize: Sizes.textBodyXS,
-    fontWeight: '500',
-    color: Colors.text_400,
+    fontSize: Sizes.text_tagline1,
   },
   textValue: {
     fontSize: Sizes.textBodyM,
@@ -127,11 +113,12 @@ const styles = StyleSheet.create({
   wrapInput: {
     height: parseSizeHeight(50),
     paddingHorizontal: parseSizeWidth(20),
-    backgroundColor: Colors.gray_100,
     borderRadius: parseSizeWidth(8),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    borderWidth: 0.5,
+    borderColor: Colors.gray_neutral_600,
   },
   Icon: {
     position: 'absolute',

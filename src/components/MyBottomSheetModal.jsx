@@ -1,10 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { StyleSheet } from 'react-native';
-import {
-  BottomSheetModal,
-  BottomSheetView,
-  BottomSheetBackdrop,
-} from '@gorhom/bottom-sheet';
+import { StyleSheet, View } from 'react-native';
+import { BottomSheetModal, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { parseSizeHeight, parseSizeWidth } from '../theme';
 
 const MyBottomSheetModal = ({
@@ -39,10 +35,10 @@ const MyBottomSheetModal = ({
       snapPoints={[heightPercent]}
       onDismiss={onClose}
       backdropComponent={renderBackdrop}
+      enableDynamicSizing={false}
+      maxDynamicContentSize={0}
     >
-      <BottomSheetView style={styles.contentContainer}>
-        {children}
-      </BottomSheetView>
+      <View style={styles.contentContainer}>{children}</View>
     </BottomSheetModal>
   );
 };

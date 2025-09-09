@@ -9,6 +9,7 @@ const initialState = {
   gender: [],
   nation: [],
   job: [],
+  country: [],
 };
 
 export const commonSlice = createSlice({
