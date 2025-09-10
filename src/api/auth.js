@@ -13,9 +13,19 @@ export const refreshTokenAPI = async refreshToken => {
   return response.data;
 };
 
-export const getListProfile = async () => {
+export const selectProfile = async idBenhNhan => {
   const response = await axios.post(
-    '/api/QL_HoSoBenhNhan/LayDanhSachHoSoBenhNhan',
+    '/api/QL_HoSoBenhNhan/ThemIdXemThongTinBenhNhan',
+    null,
+    { params: idBenhNhan },
+  );
+  return response.data;
+};
+
+export const addNewProfile = async data => {
+  const response = await axios.post(
+    '/api/HT_ThongTinNguoiDung/DoiThongTinNguoiDung',
+    data,
   );
   return response.data;
 };

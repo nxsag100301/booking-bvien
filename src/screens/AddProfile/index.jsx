@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import dayjs from 'dayjs';
 
 import MyHeader from '../../components/Header/MyHeader';
 import MyTextInput from '../../components/Input/MyTextInput';
@@ -31,6 +32,7 @@ import SelectAddress from './components/SelectAddress';
 import MyDatePicker from '../../components/DatePicker';
 import { getCodeJson, getIdJson } from '../../utils/common';
 import { useSelector } from 'react-redux';
+import { addNewProfile } from '../../api/auth';
 
 const genderRadioData = [
   { label: 'Nam', value: 1 },
@@ -93,7 +95,7 @@ const AddProfile = () => {
       nationality: 'Việt Nam',
       ethnicity: 'Kinh',
       occupation: 'Không xác định',
-      gender: 0,
+      gender: 1,
     },
   });
 
@@ -116,7 +118,7 @@ const AddProfile = () => {
     return { street, address };
   };
 
-  const onSubmit = data => {
+  const onSubmit = async data => {
     // console.log('Dữ liệu form:', data);
     const addressValueArr = addressValue.split('-');
     const commune = addressValueArr[0];
@@ -131,18 +133,20 @@ const AddProfile = () => {
       dienThoai: data.phone,
       email: data.email,
       id: '17',
-      iddt: getIdJson(nation, 'ten', data.ethnicity),
-      idgt: getIdJson(gender, 'id', data.gender),
-      idnn: getIdJson(job, 'ten', data.occupation),
-      idpx: getIdJson(communeOld, 'ten', commune),
+      iddt: getIdJson(nation, 'ten', data.ethnicity).toString(),
+      idgt: getIdJson(gender, 'id', data.gender).toString(),
+      idnn: getIdJson(job, 'ten', data.occupation).toString(),
+      idpx: getIdJson(communeOld, 'ten', commune).toString(),
       // idhuyen: getIdJson(districtOld, 'ten', district),
-      idqg: getIdJson(country, 'ten', data.nationality), // data.nationality
-      idtinh: getIdJson(provinceOld, 'ten', province),
-      ngaySinh: data.birthDate,
+      idqg: getIdJson(country, 'ten', data.nationality).toString(),
+      idtinh: getIdJson(provinceOld, 'ten', province).toString(),
+      ngaySinh: dayjs(data.birthDate, 'YYYY-MM-DD').format('DD-MM-YYYY'),
       soCccd: data.cccd,
       tenBn: data.fullName,
     };
     console.log({ variables });
+    const res = await addNewProfile(variables);
+    console.log('res: ', res);
   };
 
   const handleScan = valueScan => {

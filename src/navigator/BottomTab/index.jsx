@@ -35,7 +35,7 @@ const bottomTab = [
   },
   {
     id: 4,
-    name: 'notifications',
+    name: 'listProfile',
     component: ListProfile,
     icon: icons.fileOutline,
     label: 'Hồ sơ',

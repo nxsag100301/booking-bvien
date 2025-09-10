@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import MyHeader from '../../components/Header/MyHeader';
@@ -19,7 +19,7 @@ import {
 } from '../../theme';
 import icons from '../../constants/icons';
 import SearchInput from '../../components/Input/SearchInput';
-import { getListProfile } from '../../api/auth';
+import { useSelector } from 'react-redux';
 
 const ProfileCard = ({ profile, onPress }) => {
   return (
@@ -36,17 +36,7 @@ const ProfileCard = ({ profile, onPress }) => {
 const ListProfile = () => {
   const navigation = useNavigation();
   const [searchValue, setSearchValue] = useState('');
-  const [listProfile, setListProfile] = useState(null);
-
-  useEffect(() => {
-    const fetchListProfile = async () => {
-      const res = await getListProfile();
-      if (res?.statusCode === 200) {
-        setListProfile(res?.data);
-      }
-    };
-    fetchListProfile();
-  }, []);
+  const listProfile = useSelector(state => state.profile.listProfile);
 
   return (
     <>

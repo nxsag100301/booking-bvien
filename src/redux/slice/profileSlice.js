@@ -1,17 +1,29 @@
 import axios from '../../utils/authorizeAxios';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState = {
-  profile: null,
+  listProfile: [],
 };
+
+export const getListProfileApi = createAsyncThunk(
+  'user/userLoginAPI',
+  async () => {
+    const res = await axios.post(
+      '/api/QL_HoSoBenhNhan/LayDanhSachHoSoBenhNhan',
+    );
+    console.log('res data:', res.data);
+    return res.data;
+  },
+);
 
 export const profileSlice = createSlice({
   name: 'profile',
   initialState,
-  reducers: {
-    setProfile: (state, action) => {
-      state.profile = action.payload;
-    },
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(getListProfileApi.fulfilled, (state, action) => {
+      state.listProfile = action.payload?.data;
+    });
   },
 });
 
