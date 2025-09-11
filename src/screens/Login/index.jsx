@@ -22,7 +22,7 @@ import { userLoginAPI } from '../../redux/slice/userSlice';
 
 const loginSchema = z.object({
   username: z.string().min(1, 'Vui lòng nhập tài khoản'),
-  password: z.string().min(6, 'Mật khẩu phải ít nhất 6 ký tự'),
+  password: z.string().min(1, 'Mật khẩu phải ít nhất 6 ký tự'),
 });
 
 const Login = () => {

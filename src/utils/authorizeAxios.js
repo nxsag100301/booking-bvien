@@ -22,7 +22,7 @@ authorizeAxiosInstance.defaults.withCredentials = true;
 // Interceptors Request
 authorizeAxiosInstance.interceptors.request.use(
   async config => {
-    axiosReduxStore.dispatch(setGlobalLoading(true));
+    // axiosReduxStore.dispatch(setGlobalLoading(true));
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -41,13 +41,13 @@ authorizeAxiosInstance.interceptors.response.use(
   response => {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    axiosReduxStore.dispatch(setGlobalLoading(false));
+    // axiosReduxStore.dispatch(setGlobalLoading(false));
     return response;
   },
   async error => {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    axiosReduxStore.dispatch(setGlobalLoading(false));
+    // axiosReduxStore.dispatch(setGlobalLoading(false));
     // Token không hợp lệ, refreshtoken hết hạn
     // if (error.response?.status === 401) {
     //   axiosReduxStore.dispatch(logOut());

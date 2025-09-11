@@ -64,6 +64,8 @@ const AddProfile = () => {
   const [addressValue, setAddressValue] = useState('');
   const [isOpenAddressModal, setIsOpenAddressModal] = useState(false);
 
+  const user = useSelector(state => state.user.currentUser);
+
   const {
     provinceNew,
     communeNew,
@@ -132,7 +134,7 @@ const AddProfile = () => {
       diaChi: data.street,
       dienThoai: data.phone,
       email: data.email,
-      id: '17',
+      id: user?.idTK,
       iddt: getIdJson(nation, 'ten', data.ethnicity).toString(),
       idgt: getIdJson(gender, 'id', data.gender).toString(),
       idnn: getIdJson(job, 'ten', data.occupation).toString(),

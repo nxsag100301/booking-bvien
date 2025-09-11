@@ -47,6 +47,23 @@ export const userVerifyOtpAPI = createAsyncThunk(
   },
 );
 
+export const selectProfileAPI = createAsyncThunk(
+  'user/selectProfileAPI',
+  async idBenhNhan => {
+    const res = await axios.post(
+      '/api/QL_HoSoBenhNhan/ThemIdXemThongTinBenhNhan',
+      null,
+      {
+        params: { idBenhNhan },
+      },
+    );
+    const { accessToken, refreshToken } = res?.data?.tokenInfor;
+    await AsyncStorage.setItem('accessToken', accessToken);
+    await AsyncStorage.setItem('refreshToken', refreshToken);
+    return res.data;
+  },
+);
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -60,6 +77,9 @@ export const userSlice = createSlice({
       state.currentUser = jwtDecode(action.payload?.tokenInfor?.accessToken);
     });
     builder.addCase(userVerifyOtpAPI.fulfilled, (state, action) => {
+      state.currentUser = jwtDecode(action.payload?.tokenInfor?.accessToken);
+    });
+    builder.addCase(selectProfileAPI.fulfilled, (state, action) => {
       state.currentUser = jwtDecode(action.payload?.tokenInfor?.accessToken);
     });
   },

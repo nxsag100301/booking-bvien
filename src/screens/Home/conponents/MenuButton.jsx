@@ -9,30 +9,16 @@ import {
 } from '../../../theme';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import Toast from 'react-native-toast-message';
 
 const MenuButton = ({ title, icon, screen }) => {
   const navigation = useNavigation();
   const user = useSelector(state => state.user.currentUser);
-  const listProfile = useSelector(state => state.profile.listProfile);
 
   const handleNavigation = screenNavigate => {
     if (!user) {
       return navigation.navigate('login');
     }
-    if (listProfile?.length < 1) {
-      Toast.show({
-        type: 'error',
-        text1: 'Bạn chưa có hồ sơ',
-        text2: 'Tạo hồ sơ để đặt khám',
-      });
-      return navigation.navigate('bottomTab', {
-        screen: 'listProfile',
-      });
-    }
-    if (screenNavigate) {
-      return navigation.navigate(screenNavigate);
-    }
+    navigation.navigate(screenNavigate);
   };
 
   return (

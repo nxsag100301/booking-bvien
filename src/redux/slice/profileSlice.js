@@ -1,17 +1,17 @@
 import axios from '../../utils/authorizeAxios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { logOut } from './userSlice';
 
 const initialState = {
   listProfile: [],
 };
 
 export const getListProfileApi = createAsyncThunk(
-  'user/userLoginAPI',
+  'user/getListProfileApi',
   async () => {
     const res = await axios.post(
       '/api/QL_HoSoBenhNhan/LayDanhSachHoSoBenhNhan',
     );
-    console.log('res data:', res.data);
     return res.data;
   },
 );
@@ -24,9 +24,10 @@ export const profileSlice = createSlice({
     builder.addCase(getListProfileApi.fulfilled, (state, action) => {
       state.listProfile = action.payload?.data;
     });
+    builder.addCase(logOut, () => initialState);
   },
 });
 
-export const { setProfile } = profileSlice.actions;
+export const {} = profileSlice.actions;
 
 export default profileSlice.reducer;

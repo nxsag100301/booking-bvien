@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import HomeHeader from './conponents/HomeHeader';
@@ -23,34 +23,35 @@ import {
 } from '../../api/common';
 import { setCommonData } from '../../redux/slice/commonSlice';
 import { getListProfileApi } from '../../redux/slice/profileSlice';
-import Toast from 'react-native-toast-message';
+import SelectProfileModal from './conponents/SelectProfileModal';
 
 const Home = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const user = useSelector(state => state.user.currentUser);
-  const listProfile = useSelector(state => state.profile.listProfile);
-  console.log('user: ', user);
+  const [isOpenSelectProfileModal, setIsOpenSelectProfileModal] =
+    useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (user && !user?.DayDuThongTin) {
+        setIsOpenSelectProfileModal(true);
+      } else {
+        setIsOpenSelectProfileModal(false);
+      }
+    }, [user]),
+  );
+
+  useEffect(() => {
+    dispatch(getListProfileApi());
+  }, [dispatch, user]);
+
   const handleBooking = () => {
     if (!user) {
       return navigation.navigate('login');
     }
-    if (listProfile?.length < 1) {
-      Toast.show({
-        type: 'error',
-        text1: 'Bạn chưa có hồ sơ',
-        text2: 'Tạo hồ sơ để đặt khám',
-      });
-      return navigation.navigate('bottomTab', {
-        screen: 'listProfile',
-      });
-    }
     navigation.navigate('selectFacility');
   };
-
-  useEffect(() => {
-    dispatch(getListProfileApi());
-  }, [dispatch]);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -98,30 +99,36 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollContent}
-      showsVerticalScrollIndicator={false}
-    >
-      <HomeHeader />
-      <HomeCarousel />
-      <BannerCarousel />
-      <View style={styles.menu}>
-        {homeMenu.map(item => (
-          <MenuButton
-            key={item.title}
-            title={item.title}
-            icon={item.icon}
-            screen={item.screen}
-          />
-        ))}
-      </View>
-      <MyButton
-        onPress={handleBooking}
-        style={styles.buttonStyle}
-        labelStyle={styles.labelButton}
-        label="Đặt khám"
+    <>
+      <SelectProfileModal
+        isVisible={isOpenSelectProfileModal}
+        onClose={() => setIsOpenSelectProfileModal(false)}
       />
-    </ScrollView>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <HomeHeader />
+        <HomeCarousel />
+        <BannerCarousel />
+        <View style={styles.menu}>
+          {homeMenu.map(item => (
+            <MenuButton
+              key={item.title}
+              title={item.title}
+              icon={item.icon}
+              screen={item.screen}
+            />
+          ))}
+        </View>
+        <MyButton
+          onPress={handleBooking}
+          style={styles.buttonStyle}
+          labelStyle={styles.labelButton}
+          label="Đặt khám"
+        />
+      </ScrollView>
+    </>
   );
 };
 
